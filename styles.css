@@ -1,0 +1,569 @@
+
+/*
+
+PAGE WIDE STYLING
+
+*/
+
+@font-face {
+  font-family: 'Futura';
+  src: url('fonts/Futura Medium.ttf') format('truetype');
+  font-style: normal;
+  font-display: swap;
+}
+
+html {
+  font-family: 'Futura', 'Helvetica Neue', Arial, sans-serif;
+  scroll-behavior: smooth;
+  color: white;
+  /* background-color: #1a1a1a; */
+  background-color: white;
+
+  
+}
+
+h1 {
+    font-size: 120px;
+    text-shadow: 0px 16px 0px  rgb(0 0 0 / 0.25);
+}
+
+h2 {
+    font-size: 52px;
+    text-shadow: 0px 8px 0px  rgb(0 0 0 / 0.25);
+}
+
+h3 {
+    font-size: 36px;
+    text-shadow: 0px 4px 0px  rgb(0 0 0 / 0.25);
+}
+
+h4 {
+    font-size: 28px;
+    text-shadow: 0px 2px 0px  rgb(0 0 0 / 0.25);
+}
+
+p {
+    font-size: 24px;
+    text-shadow: 0px 2px 0px  rgb(0 0 0 / 0.25);
+
+    white-space: pre-line;
+    line-height: 1.8;
+}
+
+html, body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+    /* background: #1a1a1a; */
+}
+
+section {
+    margin: 0px;
+    padding: 0px;
+    scroll-margin-top: 120px;
+    padding-bottom: 120px;
+
+}
+
+/*
+
+TOPBAR NAVIGATION
+
+*/
+
+.topnav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    -webkit-sticky: sticky; /* harmless fallback */
+
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+
+    transform: translateZ(0);
+}
+.topnav a {
+    color: #333;
+    padding: 14px 20px;
+    text-decoration: none;
+    font-size: 24px;
+
+    transition: 
+        background-color 0.25s ease,
+        transform 0.2s ease;
+}
+
+.topnav a:hover {
+    background-color: #eee;
+    transform: translateY(-2px);
+}
+
+.top-gradient {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    z-index: 0;
+
+    width: 100%;
+    height: 100dvh;
+
+    background: linear-gradient(
+        to bottom,
+        rgb(0 0 0 / 0.25) 0vh,
+        transparent 8vh
+    );
+
+    pointer-events: none;
+    z-index: 999;
+}
+
+/*
+
+SOCIAL BAR
+
+*/
+
+.social-bar {
+    position: fixed;
+    bottom: 25px;
+    left: 25px;
+    display: flex;
+    gap: 15px;
+    z-index: 1000;
+}
+
+
+.social-bar a {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #000;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 28px;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+
+.social-bar a:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 0px rgba(255, 255, 255, 0.25);
+}
+
+/*
+
+HERO PAGE
+
+*/
+
+/* .hero {
+    min-height: -webkit-fill-available;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-start;
+    padding: 0px;
+} */
+.hero {
+    min-height: 100vh;
+    min-height: 100dvh;
+
+    position: relative;
+    overflow: visible;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    /* padding: 0 0 80px 0; */
+}
+/* .hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    z-index: 0;
+} */
+.hero-video {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    z-index: 0;
+}
+
+.hero-darken {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 1;
+}
+
+/* .hero-gradient {
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(
+        to bottom,
+        transparent 0vh,
+        #1a1a1a 100vh
+    );
+    z-index: 2;
+} */
+.hero-gradient {
+    position: absolute;
+    inset: -1px;
+
+    background: linear-gradient(
+        to bottom,
+        transparent 0vh,
+        #1a1a1a 100vh
+    );
+
+    z-index: 2;
+}
+
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 900px;
+    padding: 40px 40px 40px 40px;
+
+    /* mask-image: linear-gradient(
+        to bottom,
+        black 84vh,
+        transparent 92vh
+    );
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        black 84vh,
+        transparent 92vh,
+    ); */
+}
+
+.hero-header {
+    padding: 0;
+}
+
+.hero-paragraph {
+    padding: 0;
+}
+
+
+
+
+
+/*
+
+GALLERY
+
+*/
+
+.content {
+    min-height: 100vh;
+    padding: 60px;
+    text-align: center;
+    background: #1a1a1a;
+
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 0px;
+    max-width: 800px;
+    margin: auto;
+    align-items: start;
+}
+
+.contract-card {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 24px;
+    background: #111;
+    border-radius: 12px;
+
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.contract-card ol {
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
+.contract-card li {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+}
+
+.contract-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 0px;
+    max-width: 800px;
+    margin: auto;
+    align-items: start;
+}
+
+.gallery-condensed {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+    max-width: 600px;
+    margin: auto;
+    align-items: start;
+}
+
+.gallery-small {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: auto;
+    align-items: start;
+}
+
+
+.card {
+    margin: 4px;
+    padding: 2px;
+    background: #111;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 0px rgba(255, 255, 255, 0.25);
+}
+.google-form {
+    width: 100%;
+    max-width: 800px;
+    height: 1200px; /* adjust as needed */
+    display: block;
+    margin: 0 auto;
+    border: none;
+}
+.card iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+
+    border: none;
+    border-radius: 12px;
+
+    display: block;
+}
+
+.card img,
+.card video {
+    box-sizing: border-box;
+    padding: 4px;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    border-radius: 12px;
+}
+
+.card h3,
+.card p {
+    padding: 0 8px;
+}
+
+
+
+
+
+
+
+
+
+/*
+
+MUSIC
+
+*/
+
+.audio-list {
+    text-align: left;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.track-name {
+    flex: 1;
+    min-width: 0;
+    font-size: 24px;
+}
+
+.audio-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 16px;
+    margin-bottom: 15px;
+    background: #111;
+    border-radius: 12px;
+    flex-wrap: wrap; /* add this */
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.audio-row audio {
+    width: 100%;
+    min-width: 0;
+    height: 80px;
+}
+
+.audio-row:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 0px rgba(255, 255, 255, 0.25);
+}
+
+
+
+
+
+/*
+
+SCREENPLAY
+
+*/
+
+.script-container {
+    max-width: 900px;
+    margin: auto;
+}
+
+.episode-card {
+    background: #111;
+    padding: 4px;
+    border-radius: 16px;
+
+    margin-bottom: 30px;
+
+    overflow: hidden; /* keeps contents inside */
+}
+.episode-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 0px rgba(255, 255, 255, 0.25);
+}
+
+.episode-grid {
+    display: flex;
+    gap: 15px;
+
+    overflow-x: auto;
+    padding: 20px;
+
+    width: fit-content;
+    max-width: 100%;
+    margin: auto;
+}
+
+.episode-grid button {
+    flex-shrink: 0;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: none;
+    background: #222;
+    color: white;
+    font-family: 'Futura', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 24px;
+    cursor: pointer;
+    transition: 
+        background-color 0.25s ease,
+        transform 0.2s ease;
+}
+.episode-grid button:hover {
+    background: #555;
+}
+
+.pdf-card {
+    background: #111;
+    padding: 8px;
+    border-radius: 16px;
+
+    overflow: hidden;
+}
+
+.pdf-card iframe,
+.pdf-card object {
+    width: 100%;
+    height: 100vh;
+    min-height: 600px;
+    border: none;
+    border-radius: 12px;
+}
+
+
+
+
+
+/*
+
+VIEWER
+
+*/
+.viewer {
+    visibility: hidden;
+    opacity: 0;
+
+    position: fixed;
+    inset: 0;
+
+    width: 100vw;
+    height: 100dvh;
+
+    z-index: 9999;
+
+    background: rgba(0,0,0,.5);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0;
+
+    transition:
+        opacity .25s ease,
+        visibility .25s ease;
+}
+
+.viewer.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.viewer img {
+    max-width: 95vw;
+    max-height: 90vh;
+
+    border-radius: 12px;
+
+    transform: scale(.95);
+    transition: transform .25s ease;
+}
+
+
+.viewer.active img {
+    transform: scale(1);
+}

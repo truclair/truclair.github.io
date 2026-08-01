@@ -1,32 +1,155 @@
 <!DOCTYPE html>
-<head>
-  <link rel="stylesheet" href="style.css">
-</head>
-
 <html>
-    <head>
-        <title>
-            Truclair
-        </title>
-    </head>
-    <body>
-        <div style="
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        ">
-            <!-- <h1 class="fade-item">Truclair</h1> -->
-            <a href="about.html">
-                <img style="max-height: 120px" src="title.png">
-            </a>
+  <head>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  </head>
+  <body>
+
+    <!-- <div class="top-gradient"></div> -->
+
+    <!-- TOPBAR NAVIGATION  -->
+    <div class="topnav">
+      <a href="#home">Home</a>
+      <a href="#prices">Prices</a>
+      <a href="#terms">Terms</a>
+      <a href="#order">Order</a>
+    </div>
+
+    <!-- SOCIAL BAR  -->
+    <div class="social-bar">
+      <a href="https://www.youtube.com/@truclair" target="_blank"> <i class="fa-brands fa-youtube"></i> </a>
+      <a href="https://www.instagram.com/truclair.arts/" target="_blank"> <i class="fa-brands fa-instagram"></i> </a>
+      <a href="https://www.deviantart.com/truclair" target="_blank"> <i class="fa-brands fa-deviantart"></i> </a>
+    </div>
+
+    <div class="content">
+
+        <!-- HERO PAGE  -->
+        <section id="home" class="hero">
+            <video class="hero-video" autoplay loop muted playsinline>
+                <source src="illustration/2026-01-07-Peer-Pressure.mp4" type="video/mp4">
+            </video>
+            <div class="hero-darken"></div>
+            <div class="hero-gradient"></div>
+            <div class="hero-content">
+                <div class="hero-header">
+                <h1>TRUCLAIR</h1>
+                </div>
+                <div class="hero-paragraph">
+                <p>Commissions are open! See pricing below. Place an order!</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="prices" class="prices">
+            <h2>HEADSHOT</h2>
+            <p>$20/colored</p>
+            <div class="gallery">
+            <div class="card"> <img src="illustration/2024-05-24-Sunset-Louis.png"> </div>
+            </div>
             
-            <h3>Index</h3>
-            <!-- <a href="about.html">About</a> -->
-            <a href="gallery.html">Gallery</a>
-            <h3>Projects</h3>
-            <a href="onemorehour.html">One More Hour</a>
-            <a href="apocalypse.html">Apocalypse</a>
+            <h2>FULLBODY</h2>
+            <p>$60/colored</p>
+            <div class="gallery">
+            <div class="card"> <img src="illustration/2026-06-30-Homecoming.png"> </div>
+            </div>
+            
+            <h2>SCENE</h2>
+            <p>$80/colored</p>
+            <div class="gallery">
+            <div class="card"> <img src="illustration/2025-11-25-Fighting.png"> </div>
+            </div>
+        </section>
+
+    
+    <!-- HALF BODY -->
+    
+    <!-- TERMS -->
+    
+    <section id="terms" class="terms">
+
+        <h2>Terms</h2>
+
+        <div class="contract-card">
+            <ol>
+                <li>No lewd or NSFW content.</li>
+                <li>The canvas sizes above are a base and may change depending on the commission.</li>
+                <li>Commissions are completed in the order and pace that fits my workload. Feel free to ask for progress updates!</li>
+                <li>Please provide references and a brief description of your character's personality.</li>
+                <li>Intricate details may be simplified to suit my art style.</li>
+                <li>Payment is in USD via PayPal only.</li>
+                <li>Commercial work is quoted separately.</li>
+                <li>Commissioned artwork may not be used commercially or for NFTs.</li>
+                <li>I may post commissioned artwork on social media unless you request otherwise.</li>
+                <li>[IMPORTANT] 50% deposit upfront, remaining 50% upon completion.</li>
+                <li>If you read these rules, leave the word "eclair" anywhere in your request!</li>
+            </ol>
         </div>
-    </body>
+    </section>
+    
+    <section id="order" class="order">
+        <h2>Order</h2>
+        <div class="card">
+            <iframe
+                class="google-form"
+                src="https://docs.google.com/forms/d/e/1FAIpQLSeF5rsBP9occ1YZB4UuF5xo090ypMtkAcdRfXoE4XlUVd-G_g/viewform?embedded=true"
+                frameborder="0"
+                marginheight="0"
+                marginwidth="0">
+                Loading…
+            </iframe>
+        </div>
+    </section>
+    
+
+    </div>
+
+    <!-- IMAGE PREVIEW -->
+    <div id="viewer" class="viewer">
+        <img id="viewer-image">
+    </div>
+
+
+    <script>
+      const viewer = document.getElementById("viewer");
+      const viewerImage = document.getElementById("viewer-image");
+
+      document.querySelectorAll(".card img").forEach(img => {
+          img.addEventListener("click", () => {
+              const preload = new Image();
+
+              preload.onload = () => {
+                  viewerImage.src = preload.src;
+                  viewer.classList.add("active");
+              };
+
+              preload.src = img.src;
+          });
+      });
+
+      viewer.addEventListener("click", () => {
+          viewer.classList.remove("active");
+      });
+
+
+    </script>
+
+    <script>
+      function openScript(file) {
+          const oldViewer = document.getElementById("pdfViewer");
+
+          const newViewer = document.createElement("object");
+          newViewer.id = "pdfViewer";
+          newViewer.type = "application/pdf";
+          newViewer.data = file;
+
+          newViewer.style.width = "100%";
+          newViewer.style.height = "85vh";
+
+          oldViewer.replaceWith(newViewer);
+      }
+    </script>
+  </body>
 </html>
+
