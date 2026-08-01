@@ -1,17 +1,7 @@
 import { createClient }
 from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-const supabaseUrl =
-"https://lyygytdqbhpfeoxjwydo.supabase.co";
-
-const supabaseKey =
-"sb_publishable_7BfpzSncDJR9EC7Jiqsx3A_TwCj_S8Q";
-
-const supabase =
-createClient(
-    supabaseUrl,
-    supabaseKey
-);
+import { supabase } from "./supabase.js";
 
 
 
@@ -31,8 +21,9 @@ function updateProgress(percent){
 
 
 
-submitButton.addEventListener("click", async () => {
+submitButton.addEventListener("click", async (event) => {
 
+    event.preventDefault();
     const name = document.getElementById("name").value != "";
     const email = document.getElementById("email").value != "";
     const type = document.querySelector('input[name="type"]:checked') !== null;

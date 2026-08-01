@@ -17,119 +17,74 @@
         </div>
 
         <!-- SOCIAL BAR  -->
-        <div class="social-bar">
-            <a href="https://www.youtube.com/@truclair" target="_blank"> <i class="fa-brands fa-youtube"></i> </a>
-            <a href="https://www.instagram.com/truclair.arts/" target="_blank"> <i class="fa-brands fa-instagram"></i> </a>
-            <a href="https://www.deviantart.com/truclair" target="_blank"> <i class="fa-brands fa-deviantart"></i> </a>
-        </div>
+<div class="social-bar">
+    <p>Contact me if you have questions!</p>
+    <div class="social-links">
+        <!-- <a href="https://www.youtube.com/@truclair" target="_blank">
+            <i class="fa-brands fa-youtube"></i>
+        </a> -->
+        <a href="https://www.instagram.com/truclair.arts/" target="_blank">
+            <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://www.deviantart.com/truclair" target="_blank">
+            <i class="fa-brands fa-deviantart"></i>
+        </a>
+        <a href="mailto:truclair@gmail.com">
+            <i class="fa-solid fa-envelope"></i>
+        </a>
+    </div>
+</div>
 
         <!-- HERO PAGE  -->
+
         <section id="home" class="hero">
             <video class="hero-video" autoplay loop muted playsinline>
                 <source src="illustration/2026-01-07-Peer-Pressure.mp4" type="video/mp4">
-            </video>
-            <div class="hero-darken"></div>
-            <div class="hero-gradient"></div>
-            <div class="hero-content">
-                <div class="hero-header">
-                <h1>TRUCLAIR</h1>
-                </div>
-                <div class="hero-paragraph">
-                <p>Commissions are open!</p>
-                </div>
                 
-                    
-            </div>
-            
-        </section>
+            </video>
 
-        <div class="content">
+                <div class="hero-darken"></div>
+                <div class="hero-gradient"></div>
+                <div class="hero-content">
+
+                <h1>TRUCLAIR</h1>
+                <p id="count"></p>
 
                 <div class="commission-container">
-
-                    <div class="upload-section">
-                        <label> How will this work? </label>
-                        <ol>
-                            <li>Select any of the pricing options below.</li>
-                            <li>Read the Terms of Service.</li>
-                            <li>Fill out your name and email address.</li>
-                            <li>Provide me with a description of how you'd want your commission!</li>
-                            <li>Send in the deposit to my PayPal (@KevinAromin).</li>
-                            <li>I will reach out to you via truclair@gmail.com!</li>
-                        </ol>
-                    </div>
+                    <label>Welcome!</label>
+                    <ol>
+                        <li>Select any of the pricing options below.</li>
+                        <li>Read the Terms of Service.</li>
+                        <li>Fill our your contact info (name and email address).</li>
+                        <li>Don't forget to specfify what you want in your commission!</li>
+                        <li>I will confirm details via truclair@gmail.com and get started.</li>
+                    </ol>
                 </div>
+
+        </div>
+            
+        </section>
+        <div class="content">
+                
+
             <section id="order" class="order">
-                <h2>Order</h2>
-                <p>*Place a selection below.</p>
+                <!-- <h2>Order</h2>
+                <p>*Place a selection below.</p> -->
 
-                <div class="commission-types">
-                    <label class="commission-card">
-                        <input 
-                            type="radio" 
-                            name="type" 
-                            value="Headshot"
-                            required>
-                        <h3>Headshot</h3>
-                        <p>$20 / colored</p>
-                        <img src="illustration/2024-05-24-Sunset-Louis.png">
-                    </label>
-                    <label class="commission-card">
+                <!-- commission_types.js: Presents the user with a list of commission types. -->
+                <div class="commission-types" id="commission-types"></div>
 
-                        <input 
-                            type="radio" 
-                            name="type" 
-                            value="Full Body">
+                <!-- <h2 id="terms">Terms of Service</h2>
+                <p>*Read before submitting.</p> -->
+            </section>
+            <section id="terms" class="terms">
 
-                        <h3>Full Body</h3>
-                        <p>$60 / colored</p>
-                        <img src="illustration/2026-06-30-Homecoming.png">
-                    </label>
-                    <label class="commission-card">
-
-                        <input 
-                            type="radio" 
-                            name="type" 
-                            value="Scene">
-                        <h3>Scene</h3>
-                        <p>$80 / colored</p>
-                        <img src="illustration/2025-11-25-Fighting.png">
-                        <img src="illustration/Heartache.png">
-                    </label>
-                </div>
-
-        
-                <!-- <div class="contract-card">
-                    <iframe
-                        class="google-form"
-                        src="https://docs.google.com/forms/d/e/1FAIpQLSeF5rsBP9occ1YZB4UuF5xo090ypMtkAcdRfXoE4XlUVd-G_g/viewform?embedded=true"
-                        frameborder="0"
-                        marginheight="0"
-                        marginwidth="0">
-                        Loading…
-                    </iframe>
-                </div> -->
-
-                <h2 id="terms">Terms of Service</h2>
-                <p>*Read before submitting.</p>
                 <form id="commissionForm" class="commission-container"> 
-
                     <div class="upload-section">
                         <label> Terms of Service </label>
-                        <small>Updated 8/1/2026</small>
-                        <ol>
-                            <li>No lewd or NSFW content.</li>
-                            <li>Please provide references and a brief description of your character's personality.</li>
-                            <li>Commissions are completed in the order and pace that fits my workload. Feel free to ask for progress updates!</li>
-                            <li>The canvas sizes above are a base. Feel free to specify any desired canvas size.</li>
-                            <li>Payment is in USD via PayPal only (@KevinAromin).</li>
-                            <li>A 50% deposit is required upfront.</li>
-                            <li>The remaining 50% will be required when the completed artwork is sent in.</li>
-                            <li>Intricate details may be simplified to suit my art style.</li>
-                            <li>Commercial work is quoted separately.</li>
-                            <li>Commissioned artwork may not be used commercially or for NFTs.</li>
-                            <li>I may post commissioned artwork on social media unless requested otherwise.</li>
-                        </ol>
+                        <small id="tos-updated">Updated 8/1/2026</small>
+                        <!-- tos.js & tos.json: displays the terms of service in a numbered list -->
+                        <ol id="tos-list"></ol>
                     </div>
                     
                     <div class="upload-section">
@@ -142,13 +97,13 @@
                         <input
                             id="email"
                             type="email"
-                            placeholder="Email*"
+                            placeholder="Email or other contact info*"
                             >
                     </div>
 
                     <div class="upload-section">
                         <!-- <label for="references">Character References</label> -->
-                        <small>Upload one or more reference images (optional, highly recommended)</small>
+                        <small>Upload one or more reference images.</small>
                         <input
                             id="references"
                             type="file"
@@ -156,6 +111,7 @@
                             multiple>
 
                         <!-- <label for="references">Character Description</label> -->
+                        <small>Describe here (background or solid color, number of characters, etc.).</small>
                         <textarea
                             id="description"
                             placeholder="Provide any details for the commission"
@@ -193,7 +149,6 @@
             <img id="viewer-image">
         </div>
 
-        <script type="module" src="app.js"></script>
 
         <script>
         const viewer = document.getElementById("viewer");
@@ -212,6 +167,10 @@
             viewer.classList.remove("active");
         });
         </script>
+        <script type="module" src="app.js"></script>
+        <script type="module" src="tos.js"></script>
+        <script type="module" src="stats.js"></script>
+        <script type="module" src="cards.js"></script>
     </body>
 </html>
 
