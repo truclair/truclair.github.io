@@ -776,11 +776,14 @@ COMMISSION FORM
 
     position: relative;
 
+    display: flex;
+    flex-direction: column;
     background: #222;
 
     border-radius: 16px;
 
     padding: 12px;
+    gap: 8px;
 
     cursor: pointer;
 
@@ -791,14 +794,9 @@ COMMISSION FORM
 
 }
 
-
-
 .commission-card:hover {
-
     transform: translateY(-4px);
-
     background: #2c2c2c;
-
 }
 
 
@@ -843,6 +841,7 @@ COMMISSION FORM
 
     color: #bbb;
 
+    margin-bottom: 8px;
 }
 
 
