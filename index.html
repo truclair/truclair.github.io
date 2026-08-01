@@ -90,7 +90,7 @@
     
     <section id="order" class="order">
         <h2>Order</h2>
-        <div class="card">
+        <!-- <div class="contract-card">
             <iframe
                 class="google-form"
                 src="https://docs.google.com/forms/d/e/1FAIpQLSeF5rsBP9occ1YZB4UuF5xo090ypMtkAcdRfXoE4XlUVd-G_g/viewform?embedded=true"
@@ -99,7 +99,67 @@
                 marginwidth="0">
                 Loading…
             </iframe>
+        </div> -->
+
+        <div class="commission-container">
+
+            <input
+                id="name"
+                type="text"
+                placeholder="Your name"
+                required>
+
+            <input
+                id="email"
+                type="email"
+                placeholder="Email"
+                required>
+
+            <select id="type" required>
+                <option value="">Select commission type...</option>
+                <option>Sketch</option>
+                <option>Head</option>
+                <option>Bust</option>
+                <option>Half Body</option>
+                <option>Full Body</option>
+                <option>Scene</option>
+            </select>
+
+            <textarea
+                id="description"
+                placeholder="Describe your commission"
+                required></textarea>
+
+            <div class="upload-section">
+                <label for="references"> Character References </label>
+                <input
+                    id="references"
+                    type="file"
+                    accept="image/*"
+                    multiple>
+                <small> Upload one or more reference images of your character. </small>
+            </div>
+            <label class="tos-checkbox">
+
+                <input
+                    id="tos"
+                    type="checkbox"
+                    required>
+
+                <span>
+                    I have read and agree to the Terms of Service.
+                </span>
+
+            </label>
+
+            <button id="submit">
+                Submit Request
+            </button>
+
+            <p id="submit-message" class="submit-message"></p>
+
         </div>
+
     </section>
     
 
@@ -109,7 +169,7 @@
     <div id="viewer" class="viewer">
         <img id="viewer-image">
     </div>
-
+    <script type="module" src="app.js"></script>
 
     <script>
       const viewer = document.getElementById("viewer");
