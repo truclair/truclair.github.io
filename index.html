@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  </head>
-  <body>
+    <head>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    </head>
+    <body>
 
-    <!-- <div class="top-gradient"></div> -->
+        <div class="top-gradient"></div>
 
-    <!-- TOPBAR NAVIGATION  -->
-    <div class="topnav">
-      <a href="#home">Home</a>
-      <a href="#prices">Prices</a>
-      <a href="#terms">Terms</a>
-      <a href="#order">Order</a>
-    </div>
+        <!-- TOPBAR NAVIGATION  -->
+        <div class="topnav">
+            <a href="#home">Home</a>
+            <a href="#select">Select</a>
+            <a href="#order">Order</a>
+        </div>
 
-    <!-- SOCIAL BAR  -->
-    <div class="social-bar">
-      <a href="https://www.youtube.com/@truclair" target="_blank"> <i class="fa-brands fa-youtube"></i> </a>
-      <a href="https://www.instagram.com/truclair.arts/" target="_blank"> <i class="fa-brands fa-instagram"></i> </a>
-      <a href="https://www.deviantart.com/truclair" target="_blank"> <i class="fa-brands fa-deviantart"></i> </a>
-    </div>
-
-    <div class="content">
+        <!-- SOCIAL BAR  -->
+        <div class="social-bar">
+            <a href="https://www.youtube.com/@truclair" target="_blank"> <i class="fa-brands fa-youtube"></i> </a>
+            <a href="https://www.instagram.com/truclair.arts/" target="_blank"> <i class="fa-brands fa-instagram"></i> </a>
+            <a href="https://www.deviantart.com/truclair" target="_blank"> <i class="fa-brands fa-deviantart"></i> </a>
+        </div>
 
         <!-- HERO PAGE  -->
         <section id="home" class="hero">
@@ -37,179 +34,186 @@
                 <h1>TRUCLAIR</h1>
                 </div>
                 <div class="hero-paragraph">
-                <p>Commissions are open! See pricing below. Place an order!</p>
+                <p>Commissions are open!</p>
                 </div>
-            </div>
-        </section>
-
-        <section id="prices" class="prices">
-            <h2>HEADSHOT</h2>
-            <p>$20/colored</p>
-            <div class="gallery">
-            <div class="card"> <img src="illustration/2024-05-24-Sunset-Louis.png"> </div>
+                
+                    
             </div>
             
-            <h2>FULLBODY</h2>
-            <p>$60/colored</p>
-            <div class="gallery">
-            <div class="card"> <img src="illustration/2026-06-30-Homecoming.png"> </div>
-            </div>
-            
-            <h2>SCENE</h2>
-            <p>$80/colored</p>
-            <div class="gallery">
-            <div class="card"> <img src="illustration/2025-11-25-Fighting.png"> </div>
-            </div>
         </section>
 
-    
-    <!-- HALF BODY -->
-    
-    <!-- TERMS -->
-    
-    <section id="terms" class="terms">
+        <div class="content">
 
-        <h2>Terms</h2>
+                <div class="commission-container">
 
-        <div class="contract-card">
-            <ol>
-                <li>No lewd or NSFW content.</li>
-                <li>The canvas sizes above are a base and may change depending on the commission.</li>
-                <li>Commissions are completed in the order and pace that fits my workload. Feel free to ask for progress updates!</li>
-                <li>Please provide references and a brief description of your character's personality.</li>
-                <li>Intricate details may be simplified to suit my art style.</li>
-                <li>Payment is in USD via PayPal only.</li>
-                <li>Commercial work is quoted separately.</li>
-                <li>Commissioned artwork may not be used commercially or for NFTs.</li>
-                <li>I may post commissioned artwork on social media unless you request otherwise.</li>
-                <li>[IMPORTANT] 50% deposit upfront, remaining 50% upon completion.</li>
-                <li>If you read these rules, leave the word "eclair" anywhere in your request!</li>
-            </ol>
+                    <div class="upload-section">
+                        <label> How will this work? </label>
+                        <ol>
+                            <li>Select any of the pricing options below.</li>
+                            <li>Read the Terms of Service.</li>
+                            <li>Fill out your name and email address.</li>
+                            <li>Provide me with a description of how you'd want your commission!</li>
+                            <li>Send in the deposit to my PayPal (@KevinAromin).</li>
+                            <li>I will reach out to you via truclair@gmail.com!</li>
+                        </ol>
+                    </div>
+                </div>
+            <section id="select" class="select">
+
+                <h2>Select</h2>
+                <div class="commission-types">
+                    <label class="commission-card">
+                        <input 
+                            type="radio" 
+                            name="type" 
+                            value="Headshot"
+                            required>
+                        <h3>Headshot</h3>
+                        <p>$20 / colored</p>
+                        <img src="illustration/2024-05-24-Sunset-Louis.png">
+                    </label>
+                    <label class="commission-card">
+
+                        <input 
+                            type="radio" 
+                            name="type" 
+                            value="Full Body">
+
+                        <h3>Full Body</h3>
+                        <p>$60 / colored</p>
+                        <img src="illustration/2026-06-30-Homecoming.png">
+                    </label>
+                    <label class="commission-card">
+
+                        <input 
+                            type="radio" 
+                            name="type" 
+                            value="Scene">
+                        <h3>Scene</h3>
+                        <p>$80 / colored</p>
+                        <img src="illustration/2025-11-25-Fighting.png">
+                    </label>
+                </div>
+            </section>
+
+        
+            <section id="order" class="order">
+                <h2>Order</h2>
+                <!-- <div class="contract-card">
+                    <iframe
+                        class="google-form"
+                        src="https://docs.google.com/forms/d/e/1FAIpQLSeF5rsBP9occ1YZB4UuF5xo090ypMtkAcdRfXoE4XlUVd-G_g/viewform?embedded=true"
+                        frameborder="0"
+                        marginheight="0"
+                        marginwidth="0">
+                        Loading…
+                    </iframe>
+                </div> -->
+
+                <div class="commission-container">
+
+                    <div class="upload-section">
+                        <label> Terms of Service </label>
+                        <ol>
+                            <li>No lewd or NSFW content.</li>
+                            <li>Please provide references and a brief description of your character's personality.</li>
+                            <li>Commissions are completed in the order and pace that fits my workload. Feel free to ask for progress updates!</li>
+                            <li>The canvas sizes above are a base. Feel free to specify any desired canvas size.</li>
+                            <li>Payment is in USD via PayPal only (@KevinAromin).</li>
+                            <li>A 50% deposit is required upfront.</li>
+                            <li>The remaining 50% will be required when the completed artwork is sent in.</li>
+                            <li>Intricate details may be simplified to suit my art style.</li>
+                            <li>Commercial work is quoted separately.</li>
+                            <li>Commissioned artwork may not be used commercially or for NFTs.</li>
+                            <li>I may post commissioned artwork on social media unless requested otherwise.</li>
+                        </ol>
+                    
+                        <label class="tos-checkbox">
+                            <input
+                                id="tos"
+                                type="checkbox"
+                                required>
+                            <span> I have read and agree to the above information. </span>
+                        </label>
+                    </div>
+                    
+                    <div class="upload-section">
+                        <label for="references"> Information </label>
+                        <input
+                            id="name"
+                            type="text"
+                            placeholder="Your name"
+                            required>
+
+                        <input
+                            id="email"
+                            type="email"
+                            placeholder="Email (required)"
+                            required>
+                    </div>
+
+
+                    <div class="upload-section">
+                        <label for="references">Character References</label>
+                        <small>Upload one or more reference images of your character.</small>
+                        <input
+                            id="references"
+                            type="file"
+                            accept="image/*"
+                            multiple>
+
+                        <label for="references">Character Description</label>
+                        <small>Describe what you want your character(s) to be doing in this commission.</small>
+                        <textarea
+                            id="description"
+                            placeholder="Describe your commission"
+                            required></textarea>
+                    </div>
+
+                    <small>
+                        Please read the Terms of Service above before submitting. You must agree to continue.
+                    </small>
+
+                    <button id="submit">
+                        Submit Request
+                    </button>
+
+                    <div id="upload-progress" class="upload-progress">
+                        <div id="upload-bar"></div>
+                    </div>
+
+
+                </div>
+
+            </section>
+    
+
         </div>
-    </section>
-    
-    <section id="order" class="order">
-        <h2>Order</h2>
-        <!-- <div class="contract-card">
-            <iframe
-                class="google-form"
-                src="https://docs.google.com/forms/d/e/1FAIpQLSeF5rsBP9occ1YZB4UuF5xo090ypMtkAcdRfXoE4XlUVd-G_g/viewform?embedded=true"
-                frameborder="0"
-                marginheight="0"
-                marginwidth="0">
-                Loading…
-            </iframe>
-        </div> -->
 
-        <div class="commission-container">
-
-            <input
-                id="name"
-                type="text"
-                placeholder="Your name"
-                required>
-
-            <input
-                id="email"
-                type="email"
-                placeholder="Email"
-                required>
-
-            <select id="type" required>
-                <option value="">Select commission type...</option>
-                <option>Sketch</option>
-                <option>Head</option>
-                <option>Bust</option>
-                <option>Half Body</option>
-                <option>Full Body</option>
-                <option>Scene</option>
-            </select>
-
-            <textarea
-                id="description"
-                placeholder="Describe your commission"
-                required></textarea>
-
-            <div class="upload-section">
-                <label for="references"> Character References </label>
-                <input
-                    id="references"
-                    type="file"
-                    accept="image/*"
-                    multiple>
-                <small> Upload one or more reference images of your character. </small>
-            </div>
-            <label class="tos-checkbox">
-
-                <input
-                    id="tos"
-                    type="checkbox"
-                    required>
-
-                <span>
-                    I have read and agree to the Terms of Service.
-                </span>
-
-            </label>
-
-            <button id="submit">
-                Submit Request
-            </button>
-
-            <p id="submit-message" class="submit-message"></p>
-
+        <!-- IMAGE PREVIEW -->
+        <div id="viewer" class="viewer">
+            <img id="viewer-image">
         </div>
 
-    </section>
-    
+        <script type="module" src="app.js"></script>
 
-    </div>
-
-    <!-- IMAGE PREVIEW -->
-    <div id="viewer" class="viewer">
-        <img id="viewer-image">
-    </div>
-    <script type="module" src="app.js"></script>
-
-    <script>
-      const viewer = document.getElementById("viewer");
-      const viewerImage = document.getElementById("viewer-image");
-
-      document.querySelectorAll(".card img").forEach(img => {
-          img.addEventListener("click", () => {
-              const preload = new Image();
-
-              preload.onload = () => {
-                  viewerImage.src = preload.src;
-                  viewer.classList.add("active");
-              };
-
-              preload.src = img.src;
-          });
-      });
-
-      viewer.addEventListener("click", () => {
-          viewer.classList.remove("active");
-      });
-
-
-    </script>
-
-    <script>
-      function openScript(file) {
-          const oldViewer = document.getElementById("pdfViewer");
-
-          const newViewer = document.createElement("object");
-          newViewer.id = "pdfViewer";
-          newViewer.type = "application/pdf";
-          newViewer.data = file;
-
-          newViewer.style.width = "100%";
-          newViewer.style.height = "85vh";
-
-          oldViewer.replaceWith(newViewer);
-      }
-    </script>
-  </body>
+        <script>
+        const viewer = document.getElementById("viewer");
+        const viewerImage = document.getElementById("viewer-image");
+        document.querySelectorAll(".card img").forEach(img => {
+            img.addEventListener("click", () => {
+                const preload = new Image();
+                preload.onload = () => {
+                    viewerImage.src = preload.src;
+                    viewer.classList.add("active");
+                };
+                preload.src = img.src;
+            });
+        });
+        viewer.addEventListener("click", () => {
+            viewer.classList.remove("active");
+        });
+        </script>
+    </body>
 </html>
 

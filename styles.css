@@ -16,7 +16,7 @@ html {
   font-family: 'Futura', 'Helvetica Neue', Arial, sans-serif;
   scroll-behavior: smooth;
   color: white;
-  /* background-color: #1a1a1a; */
+  background-color: #1a1a1a;
   background-color: white;
 
   
@@ -28,8 +28,13 @@ h1 {
 }
 
 h2 {
+    /* font-size: 52px;
+    text-shadow: 0px 8px 0px  rgb(0 0 0 / 0.25); */
+
     font-size: 52px;
-    text-shadow: 0px 8px 0px  rgb(0 0 0 / 0.25);
+    margin-top: 30px;
+    margin-bottom: 20px;
+    text-shadow: 0px 8px 0px rgb(0 0 0 / 0.25);
 }
 
 h3 {
@@ -49,6 +54,10 @@ p {
     white-space: pre-line;
     line-height: 1.8;
 }
+li {
+    margin-bottom: 12px;
+    line-height: 1.6;
+}
 
 html, body {
     margin: 0;
@@ -60,8 +69,8 @@ html, body {
 section {
     margin: 0px;
     padding: 0px;
-    scroll-margin-top: 120px;
-    padding-bottom: 120px;
+    /* scroll-margin-top: 120px;
+    padding-bottom: 120px; */
 
 }
 
@@ -102,7 +111,7 @@ TOPBAR NAVIGATION
 
 .top-gradient {
     position: fixed;
-    top: 60px;
+    top: 0px;
     left: 0;
     z-index: 0;
 
@@ -112,7 +121,7 @@ TOPBAR NAVIGATION
     background: linear-gradient(
         to bottom,
         rgb(0 0 0 / 0.25) 0vh,
-        transparent 8vh
+        transparent 16vh
     );
 
     pointer-events: none;
@@ -149,11 +158,11 @@ SOCIAL BAR
     transition: transform .2s ease, box-shadow .2s ease;
 }
 
-
 .social-bar a:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 0px rgba(255, 255, 255, 0.25);
 }
+
 
 /*
 
@@ -161,21 +170,7 @@ HERO PAGE
 
 */
 
-/* .hero {
-    min-height: -webkit-fill-available;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: flex-start;
-    padding: 0px;
-} */
 .hero {
-    min-height: 100vh;
     min-height: 100dvh;
 
     position: relative;
@@ -183,18 +178,10 @@ HERO PAGE
 
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
 
-    /* padding: 0 0 80px 0; */
 }
-/* .hero-video {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100vh;
-    object-fit: cover;
-    z-index: 0;
-} */
 .hero-video {
     position: absolute;
     inset: 0;
@@ -212,17 +199,6 @@ HERO PAGE
     background: rgba(0, 0, 0, 0.35);
     z-index: 1;
 }
-
-/* .hero-gradient {
-    position: absolute;
-    inset: -1px;
-    background: linear-gradient(
-        to bottom,
-        transparent 0vh,
-        #1a1a1a 100vh
-    );
-    z-index: 2;
-} */
 .hero-gradient {
     position: absolute;
     inset: -1px;
@@ -235,15 +211,13 @@ HERO PAGE
 
     z-index: 2;
 }
-
-
 .hero-content {
     position: relative;
     z-index: 3;
     max-width: 900px;
     padding: 40px 40px 40px 40px;
 
-    /* mask-image: linear-gradient(
+    mask-image: linear-gradient(
         to bottom,
         black 84vh,
         transparent 92vh
@@ -252,7 +226,7 @@ HERO PAGE
         to bottom,
         black 84vh,
         transparent 92vh,
-    ); */
+    );
 }
 
 .hero-header {
@@ -275,7 +249,7 @@ GALLERY
 
 .content {
     min-height: 100vh;
-    padding: 60px;
+    padding: 8px;
     text-align: center;
     background: #1a1a1a;
 
@@ -285,60 +259,10 @@ GALLERY
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 0px;
-    max-width: 800px;
-    margin: auto;
-    align-items: start;
-}
-
-.contract-card {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 24px;
-    background: #111;
-    border-radius: 12px;
-
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: left;
-}
-
-.contract-card ol {
-    margin: 0;
-    padding-left: 1.5rem;
-}
-
-.contract-card li {
-    margin-bottom: 1rem;
-    line-height: 1.7;
-}
-
-.contract-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 0px;
-    max-width: 800px;
-    margin: auto;
-    align-items: start;
-}
-
-.gallery-condensed {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 30px;
-    max-width: 600px;
-    margin: auto;
-    align-items: start;
-}
-
-.gallery-small {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 30px;
     max-width: 1200px;
     margin: auto;
     align-items: start;
 }
-
 
 .card {
     margin: 4px;
@@ -353,25 +277,6 @@ GALLERY
     transform: translateY(-4px);
     box-shadow: 0 8px 0px rgba(255, 255, 255, 0.25);
 }
-.google-form {
-    width: 100%;
-    max-width: 800px;
-    height: 1200px; /* adjust as needed */
-    display: block;
-    margin: 0 auto;
-    border: none;
-}
-.card iframe {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    height: auto;
-
-    border: none;
-    border-radius: 12px;
-
-    display: block;
-}
-
 .card img,
 .card video {
     box-sizing: border-box;
@@ -383,10 +288,6 @@ GALLERY
     border-radius: 12px;
 }
 
-.card h3,
-.card p {
-    padding: 0 8px;
-}
 
 
 
@@ -608,7 +509,7 @@ COMMISSION FORM
     margin-bottom: 24px;
 }
 
-.commission-container label {
+.commission-container label:not(.tos-checkbox) {
     display: block;
 
     margin-bottom: 8px;
@@ -617,6 +518,7 @@ COMMISSION FORM
     font-size: 20px;
     color: #ddd;
 }
+
 
 .commission-container input,
 .commission-container select,
@@ -752,6 +654,9 @@ COMMISSION FORM
 
     display: flex;
     align-items: center;
+    justify-content: left;
+
+    /* gap: 10px; */
 
     gap: 14px;
 
@@ -770,41 +675,35 @@ COMMISSION FORM
 .tos-checkbox:hover {
     background: #2c2c2c;
 }
-
 .tos-checkbox input[type="checkbox"] {
 
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
 
-    accent-color: white;
+    border: 2px solid #ddd;
+    border-radius: 6px;
 
     cursor: pointer;
+
+    accent-color: white;
 
     flex-shrink: 0;
 }
 
 .tos-checkbox span {
-
-    color: white;
-
+    margin: 0;
     font-size: 18px;
-    line-height: 1.5;
 }
+
 
 /* ---------- Success Message ---------- */
 
 .submit-message {
-
     min-height: 28px;
-
     text-align: center;
-
     font-size: 18px;
-
     color: #7dff95;
-
     opacity: 0;
-
     transition: opacity .25s ease;
 }
 
@@ -819,75 +718,188 @@ COMMISSION FORM
 
 
 
-.admin-grid{
 
-    display:grid;
+.reference-images {
 
-    grid-template-columns:
-    repeat(auto-fill,minmax(420px,1fr));
-
-    gap:24px;
-
-    margin-top:40px;
+    margin-top: 20px;
 
 }
 
-.admin-card{
 
-    background:#111;
+.reference-images strong {
 
-    border-radius:16px;
+    display: block;
 
-    padding:24px;
+    margin-bottom: 12px;
 
-    text-align:left;
+    font-size: 18px;
+
+}
+
+
+
+.reference-image {
+
+    width: 100%;
+
+    max-width: 300px;
+
+    border-radius: 12px;
+
+    margin-bottom: 12px;
+
+    display: block;
+
+    object-fit: contain;
+
+    background: #222;
+
+    padding: 8px;
+
+}
+
+
+
+/* ---------- Upload Progress ---------- */
+
+.upload-progress {
+    width: 100%;
+    height: 12px;
+    margin-top: 16px;
+    background: #222;
+    border-radius: 12px;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity .25s ease;
+
+}
+
+
+.upload-progress.show {
+
+    opacity: 1;
+
+}
+
+
+
+#upload-bar {
+
+    height: 100%;
+
+    width: 0%;
+
+    background: white;
+
+    border-radius: 12px;
+
+    transition:
+        width .3s ease;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.commission-types {
+
+    display: grid;
+
+    grid-template-columns:
+    repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 20px;
+
+}
+
+
+
+.commission-card {
+
+    position: relative;
+
+    background: #222;
+
+    border-radius: 16px;
+
+    padding: 12px;
+
+    cursor: pointer;
 
     transition:
         transform .2s ease,
-        box-shadow .2s ease;
+        box-shadow .2s ease,
+        background .2s ease;
 
 }
 
-.admin-card:hover{
 
-    transform:translateY(-4px);
 
-    box-shadow:0 8px 0 rgba(255,255,255,.25);
+.commission-card:hover {
 
-}
+    transform: translateY(-4px);
 
-.admin-card h3{
-
-    margin-top:0;
+    background: #2c2c2c;
 
 }
 
-.admin-card p{
 
-    font-size:18px;
 
-    line-height:1.5;
+.commission-card input {
+
+    position: absolute;
+
+    opacity: 0;
 
 }
 
-.admin-card select{
 
-    width:100%;
 
-    margin-top:20px;
+.commission-card img {
 
-    padding:16px;
+    width: 100%;
 
-    border:none;
+    border-radius: 12px;
 
-    border-radius:12px;
+    display: block;
 
-    background:#222;
+}
 
-    color:white;
 
-    font-family:inherit;
 
-    font-size:18px;
+.commission-card h3 {
 
+    margin: 12px 0 0;
+
+    font-size: 28px;
+
+}
+
+
+
+.commission-card p {
+
+    margin: 0;
+
+    font-size: 20px;
+
+    color: #bbb;
+
+}
+
+
+
+/* selected state */
+
+.commission-card:has(input:checked) {
+    background: #444;
 }

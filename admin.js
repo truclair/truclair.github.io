@@ -1,98 +1,289 @@
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import { createClient }
+from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-import {
-    getFirestore,
-    collection,
-    onSnapshot,
-    doc,
-    updateDoc
+
+const supabaseUrl = "https://lyygytdqbhpfeoxjwydo.supabase.co";
+
+const supabaseKey = "sb_publishable_7BfpzSncDJR9EC7Jiqsx3A_TwCj_S8Q";
+
+
+const supabase =
+createClient(
+    supabaseUrl,
+    supabaseKey
+    
+);
+
+function formatDate(timestamp) {
+
+    if (!timestamp) {
+        return "Unknown date";
+    }
+
+
+    const date = new Date(timestamp);
+
+
+    return date.toLocaleString(
+        "en-US",
+        {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+
+            hour: "numeric",
+            minute: "2-digit",
+
+            hour12: true
+        }
+    );
+
 }
-from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyDLpQZhO29xTWj2ENIlh3k_AsNjeTcXtng",
-    authDomain: "truclair-commissions.firebaseapp.com",
-    projectId: "truclair-commissions",
-    storageBucket: "truclair-commissions.firebasestorage.app",
-    messagingSenderId: "743122877442",
-    appId: "1:743122877442:web:0e10d6fa44865f1687fb1b",
-    measurementId: "G-DHYPC8Q755"
-};
+const list =
+document.getElementById("commissionList");
 
-const app = initializeApp(firebaseConfig);
 
-const db = getFirestore(app);
 
-const list = document.getElementById("commissionList");
+async function loadCommissions() {
 
-onSnapshot(collection(db, "commissions"), (snapshot) => {
+
+    const { data, error } = await supabase
+        .from("commissions")
+        .select("*")
+        .order(
+            "time",
+            {
+                ascending: false
+            }
+        );
+
+    console.log("DATA:", data);
+    console.log("ERROR:", error);
+
+    if(error){
+
+        console.error(error);
+
+        list.innerHTML =
+        "<p>Failed to load commissions.</p>";
+
+        return;
+
+    }
+
+
 
     list.innerHTML = "";
 
-    snapshot.forEach((commission) => {
 
-        const data = commission.data();
 
-        const card = document.createElement("div");
+    data.forEach((commission) => {
 
-        card.className = "admin-card";
 
-        card.innerHTML = `
+        const item = document.createElement("div");
 
-            <h3>${data.name}</h3>
+        item.className = "admin-item";
 
-            <p><strong>Email</strong><br>${data.email}</p>
 
-            <p><strong>Type</strong><br>${data.type}</p>
+        item.innerHTML = `
 
-            <p>${data.description}</p>
 
-            <select>
+            <div class="admin-summary">
 
-                <option ${data.status==="Pending"?"selected":""}>
-                    Pending
-                </option>
+                <div>
 
-                <option ${data.status==="Accepted"?"selected":""}>
-                    Accepted
-                </option>
+                    <h3>
+                        ${commission.name}
+                    </h3>
 
-                <option ${data.status==="Paid"?"selected":""}>
-                    Paid
-                </option>
+                    <small>
+                        ${formatDate(commission.time)}
+                    </small>
 
-                <option ${data.status==="Sketch"?"selected":""}>
-                    Sketch
-                </option>
+                </div>
 
-                <option ${data.status==="Rendering"?"selected":""}>
-                    Rendering
-                </option>
 
-                <option ${data.status==="Completed"?"selected":""}>
-                    Completed
-                </option>
+                <span class="admin-status">
+                    ${commission.status}
+                </span>
 
-            </select>
+            </div>
+
+
+
+            <div class="admin-details">
+
+
+                <p>
+                    <strong>Email</strong><br>
+                    ${commission.email}
+                </p>
+
+
+                <p>
+                    <strong>Type</strong><br>
+                    ${commission.type}
+                </p>
+
+
+                <p>
+                    <strong>Description</strong><br>
+                    ${commission.description}
+                </p>
+
+
+
+                <strong>References</strong>
+
+                <div class="reference-images">
+
+                    ${
+                        commission.references &&
+                        commission.references.length > 0
+
+                        ?
+
+                        commission.references.map(image => `
+
+                            <img
+                                src="${image}"
+                                class="reference-image"
+                            >
+
+                        `).join("")
+
+
+                        :
+
+                        "<p>No references uploaded.</p>"
+
+                    }
+
+                </div>
+
+
+
+                <select>
+
+                    <option ${commission.status==="Pending"?"selected":""}>
+                        Pending
+                    </option>
+
+                    <option ${commission.status==="Accepted"?"selected":""}>
+                        Accepted
+                    </option>
+
+                    <option ${commission.status==="Deposit"?"selected":""}>
+                        Deposit
+                    </option>
+
+                    <option ${commission.status==="Progress"?"selected":""}>
+                        Progress
+                    </option>
+
+                    <option ${commission.status==="Completed"?"selected":""}>
+                        Completed
+                    </option>
+
+                    <option ${commission.status==="Paid"?"selected":""}>
+                        Paid
+                    </option>
+
+
+                </select>
+
+
+            </div>
 
         `;
 
-        const select = card.querySelector("select");
 
-        select.addEventListener("change", async () => {
 
-            await updateDoc(
-                doc(db, "commissions", commission.id),
-                {
-                    status: select.value
+        // expand/collapse
+
+        const summary =
+        item.querySelector(".admin-summary");
+
+
+        summary.addEventListener(
+            "click",
+            () => {
+
+                item.classList.toggle("open");
+
+            }
+        );
+
+
+
+        const select =
+        item.querySelector("select");
+
+
+
+        select.addEventListener(
+            "change",
+            async () => {
+
+
+                const { error } =
+                await supabase
+                .from("commissions")
+                .update({
+
+                    status:
+                    select.value
+
+                })
+                .eq(
+                    "id",
+                    commission.id
+                );
+
+
+                if(error){
+
+                    console.error(error);
+
+                    alert(
+                        "Failed to update status."
+                    );
+
                 }
-            );
 
-        });
 
-        list.appendChild(card);
+                else {
+
+                    item.querySelector(".admin-status").innerText =
+                    select.value;
+
+                }
+
+
+            }
+        );
+
+
+
+        list.appendChild(item);
+
 
     });
 
-});
+    if (data.length === 0) {
+
+        list.innerHTML = `
+            <div class="empty-state">
+                <h3>No commissions yet.</h3>
+                <p>New requests will appear here.</p>
+            </div>
+        `;
+
+        return;
+
+    }
+}
+
+
+loadCommissions();
