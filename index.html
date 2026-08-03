@@ -2,6 +2,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="cards.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     </head>
     <body>
@@ -17,83 +18,60 @@
         </div>
 
         <!-- SOCIAL BAR  -->
-<div class="social-bar">
-    <p>Contact me if you have questions!</p>
-    <div class="social-links">
-        <!-- <a href="https://www.youtube.com/@truclair" target="_blank">
-            <i class="fa-brands fa-youtube"></i>
-        </a> -->
-        <a href="https://www.instagram.com/truclair.arts/" target="_blank">
-            <i class="fa-brands fa-instagram"></i>
-        </a>
-        <a href="https://www.deviantart.com/truclair" target="_blank">
-            <i class="fa-brands fa-deviantart"></i>
-        </a>
-        <a href="mailto:truclair@gmail.com">
-            <i class="fa-solid fa-envelope"></i>
-        </a>
-    </div>
-</div>
+        <div class="social-bar">
+            <p>Contact me if you have questions!</p>
+            <div class="social-links">
+                <a href="https://www.instagram.com/truclair.arts/" target="_blank"> <i class="fa-brands fa-instagram"></i> </a>
+                <a href="https://www.deviantart.com/truclair" target="_blank"> <i class="fa-brands fa-deviantart"></i> </a>
+                <a href="mailto:truclair@gmail.com"> <i class="fa-solid fa-envelope"></i> </a>
+            </div>
+        </div>
 
         <!-- HERO PAGE  -->
-
         <section id="home" class="hero">
-            <video class="hero-video" autoplay loop muted playsinline>
-                <source src="illustration/2026-01-07-Peer-Pressure.mp4" type="video/mp4">
-                
-            </video>
-
-                <div class="hero-darken"></div>
-                <div class="hero-gradient"></div>
-                <div class="hero-content">
-
-                <h1>TRUCLAIR</h1>
-                <p id="count"></p>
-
-                <div class="commission-container">
-                    <label>Welcome!</label>
-                    <ol>
-                        <li>Select any of the pricing options below.</li>
-                        <li>Read the Terms of Service.</li>
-                        <li>Fill our your contact info (name and email address).</li>
-                        <li>Don't forget to specfify what you want in your commission!</li>
-                        <li>I will confirm details via truclair@gmail.com and get started.</li>
-                    </ol>
-                </div>
-
-        </div>
-            
+            <video class="hero-video" autoplay loop muted playsinline> <source src="illustration/2026-01-07-Peer-Pressure.mp4" type="video/mp4"> </video>
+            <div class="hero-darken"></div>
+            <div class="hero-gradient"></div>
+            <div class="hero-content"></div>
+            <h1>TRUCLAIR</h1>
+            <div class="commission-container">
+                <label>Welcome!</label>
+                <ol>
+                    <li>Select any of the pricing options below.</li>
+                    <li>Read the Terms of Service.</li>
+                    <li>Fill our your contact info (name and email address).</li>
+                    <li>Don't forget to specfify what you want in your commission!</li>
+                    <li>I will confirm details via truclair@gmail.com and get started.</li>
+                </ol>
+            </div>
         </section>
-        <div class="content">
-                
 
+        <div class="content">
+            
+            <p id="count"></p>
+            
             <section id="order" class="order">
-                <!-- <h2>Order</h2>
-                <p>*Place a selection below.</p> -->
+
+                <p>Prices may change depending on request.</p>
+                <p>(Multiple chaacters, background complexity, flat colors vs shaded, etc.)</p>
 
                 <!-- commission_types.js: Presents the user with a list of commission types. -->
                 <div class="commission-types" id="commission-types"></div>
 
-                <!-- <h2 id="terms">Terms of Service</h2>
-                <p>*Read before submitting.</p> -->
             </section>
-            <section id="terms" class="terms">
 
-                <form id="commissionForm" class="commission-container"> 
+            <section id="terms" class="terms">
+                <form id="commissionForm" class="commission-container">
                     <div class="upload-section">
-                        <label> Terms of Service </label>
-                        <small id="tos-updated">Updated 8/1/2026</small>
                         <!-- tos.js & tos.json: displays the terms of service in a numbered list -->
+                        <label> Terms of Service </label>
+                        <small id="tos-updated"></small>
                         <ol id="tos-list"></ol>
                     </div>
                     
                     <div class="upload-section">
-                        <label for="references"> Information </label>
-                        <input
-                            id="name"
-                            type="text"
-                            placeholder="Your name"
-                            >
+                        <label for="references">Information</label>
+                        <input id="name" type="text" placeholder="Your name" >
                         <input
                             id="email"
                             type="email"
@@ -167,10 +145,10 @@
             viewer.classList.remove("active");
         });
         </script>
-        <script type="module" src="app.js"></script>
-        <script type="module" src="tos.js"></script>
-        <script type="module" src="stats.js"></script>
-        <script type="module" src="cards.js"></script>
+        <script type="module" src="scripts/app.js"></script>
+        <script type="module" src="scripts/tos.js"></script>
+        <script type="module" src="scripts/stats.js"></script>
+        <script type="module" src="scripts/cards.js"></script>
     </body>
 </html>
 
