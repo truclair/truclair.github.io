@@ -50,7 +50,7 @@ async function notifyNewCommission(env, { name, email, type, description, refere
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     text: [
-                        `*New commission request*`,
+                        `@everyone`,
                         `*Name:* ${displayName}`,
                         `*Email:* ${email}`,
                         `*Type:* ${type}`,
