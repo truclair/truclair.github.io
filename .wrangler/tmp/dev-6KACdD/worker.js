@@ -95,6 +95,7 @@ async function notifyNewCommission(env, { name, email, type, description, contac
           text: [
             `# Commission Request`,
             ``,
+            ``,
             `**Name:** ${displayName}`,
             `**Email:** ${email}`,
             `**Contact:** ${contact}`,
@@ -114,6 +115,7 @@ ${refs}`,
     }
     const content = [
       `# Commission Request`,
+      ``,
       ``,
       `**Name:** ${displayName}`,
       `**Email:** ${email}`,
