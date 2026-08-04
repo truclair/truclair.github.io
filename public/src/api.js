@@ -40,6 +40,13 @@ export async function updateCommissionStatus(id, status, adminToken) {
     });
 }
 
+export async function deleteCommission(id, adminToken) {
+    return apiFetch(`/commissions/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${adminToken}` },
+    });
+}
+
 export function getAdminToken() {
     let token = sessionStorage.getItem("adminToken");
     if (!token) {

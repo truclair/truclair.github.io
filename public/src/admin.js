@@ -1,4 +1,4 @@
-import { getCommissions, updateCommissionStatus, getAdminToken } from "./api.js";
+import { getCommissions, updateCommissionStatus, deleteCommission, getAdminToken } from "./api.js";
 
 function formatDate(timestamp) {
     if (!timestamp) {
@@ -89,6 +89,8 @@ async function loadCommissions() {
                     <option ${commission.status === "Completed" ? "selected" : ""}>Completed</option>
                     <option ${commission.status === "Paid" ? "selected" : ""}>Paid</option>
                 </select>
+
+                <button type="button" class="admin-delete">Delete commission</button>
             </div>
         `;
 
@@ -105,6 +107,36 @@ async function loadCommissions() {
             } catch (error) {
                 console.error(error);
                 alert("Failed to update status.");
+            }
+        });
+
+        const deleteBtn = item.querySelector(".admin-delete");
+        deleteBtn.addEventListener("click", async (event) => {
+            event.stopPropagation();
+            const label = commission.name || commission.email || "this commission";
+            if (!confirm(`Delete ${label}? This will permanently remove the commission and its reference images.`)) {
+                return;
+            }
+
+            deleteBtn.disabled = true;
+            deleteBtn.textContent = "Deleting...";
+
+            try {
+                await deleteCommission(commission.id, adminToken);
+                item.remove();
+                if (!list.querySelector(".admin-item")) {
+                    list.innerHTML = `
+                        <div class="empty-state">
+                            <h3>No commissions yet.</h3>
+                            <p>New requests will appear here.</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error(error);
+                alert("Failed to delete commission.");
+                deleteBtn.disabled = false;
+                deleteBtn.textContent = "Delete commission";
             }
         });
 

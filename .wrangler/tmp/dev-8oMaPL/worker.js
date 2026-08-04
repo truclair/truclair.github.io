@@ -4,7 +4,7 @@ var __name = (target, value) => __defProp(target, "name", { value, configurable:
 // src/worker.js
 var CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET, POST, PATCH, OPTIONS",
+  "Access-Control-Allow-Methods": "GET, POST, PATCH, DELETE, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type, Authorization"
 };
 function jsonResponse(data, status = 200) {
@@ -26,6 +26,17 @@ function requireAdmin(request, env) {
   return null;
 }
 __name(requireAdmin, "requireAdmin");
+function r2KeyFromReferenceUrl(referenceUrl) {
+  try {
+    const pathname = new URL(referenceUrl).pathname;
+    const prefix = "/api/references/";
+    if (!pathname.startsWith(prefix)) return null;
+    return decodeURIComponent(pathname.slice(prefix.length));
+  } catch {
+    return null;
+  }
+}
+__name(r2KeyFromReferenceUrl, "r2KeyFromReferenceUrl");
 async function notifyNewCommission(env, { name, email, type, description, referenceUrls, referenceFiles }) {
   const webhookUrl = env.WEBHOOK_URL;
   if (!webhookUrl) return;
@@ -130,6 +141,31 @@ async function handleUpdateCommission(request, env, id) {
   return jsonResponse({ success: true });
 }
 __name(handleUpdateCommission, "handleUpdateCommission");
+async function handleDeleteCommission(request, env, id) {
+  const authError = requireAdmin(request, env);
+  if (authError) return authError;
+  const row = await env.DATABASE.prepare(
+    `SELECT reference_urls FROM commissions WHERE id = ?`
+  ).bind(id).first();
+  if (!row) {
+    return errorResponse("Commission not found", 404);
+  }
+  const referenceUrls = JSON.parse(row.reference_urls || "[]");
+  for (const refUrl of referenceUrls) {
+    const key = r2KeyFromReferenceUrl(refUrl);
+    if (key) {
+      await env.REFERENCES.delete(key);
+    }
+  }
+  const result = await env.DATABASE.prepare(
+    `DELETE FROM commissions WHERE id = ?`
+  ).bind(id).run();
+  if (result.meta.changes === 0) {
+    return errorResponse("Commission not found", 404);
+  }
+  return jsonResponse({ success: true });
+}
+__name(handleDeleteCommission, "handleDeleteCommission");
 async function handleCreateCommission(request, env, url) {
   const formData = await request.formData();
   const name = formData.get("name")?.toString() || "";
@@ -201,6 +237,9 @@ async function handleApi(request, env, url) {
   const updateMatch = path.match(/^\/api\/commissions\/(\d+)$/);
   if (updateMatch && request.method === "PATCH") {
     return handleUpdateCommission(request, env, updateMatch[1]);
+  }
+  if (updateMatch && request.method === "DELETE") {
+    return handleDeleteCommission(request, env, updateMatch[1]);
   }
   const refMatch = path.match(/^\/api\/references\/(.+)$/);
   if (refMatch && request.method === "GET") {

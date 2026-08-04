@@ -1,6 +1,6 @@
 const CORS_HEADERS = {
     "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET, POST, PATCH, OPTIONS",
+    "Access-Control-Allow-Methods": "GET, POST, PATCH, DELETE, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type, Authorization",
 };
 
@@ -21,6 +21,17 @@ function requireAdmin(request, env) {
         return errorResponse("Unauthorized", 401);
     }
     return null;
+}
+
+function r2KeyFromReferenceUrl(referenceUrl) {
+    try {
+        const pathname = new URL(referenceUrl).pathname;
+        const prefix = "/api/references/";
+        if (!pathname.startsWith(prefix)) return null;
+        return decodeURIComponent(pathname.slice(prefix.length));
+    } catch {
+        return null;
+    }
 }
 
 async function notifyNewCommission(env, { name, email, type, description, referenceUrls, referenceFiles }) {
@@ -145,6 +156,37 @@ async function handleUpdateCommission(request, env, id) {
     return jsonResponse({ success: true });
 }
 
+async function handleDeleteCommission(request, env, id) {
+    const authError = requireAdmin(request, env);
+    if (authError) return authError;
+
+    const row = await env.DATABASE.prepare(
+        `SELECT reference_urls FROM commissions WHERE id = ?`
+    ).bind(id).first();
+
+    if (!row) {
+        return errorResponse("Commission not found", 404);
+    }
+
+    const referenceUrls = JSON.parse(row.reference_urls || "[]");
+    for (const refUrl of referenceUrls) {
+        const key = r2KeyFromReferenceUrl(refUrl);
+        if (key) {
+            await env.REFERENCES.delete(key);
+        }
+    }
+
+    const result = await env.DATABASE.prepare(
+        `DELETE FROM commissions WHERE id = ?`
+    ).bind(id).run();
+
+    if (result.meta.changes === 0) {
+        return errorResponse("Commission not found", 404);
+    }
+
+    return jsonResponse({ success: true });
+}
+
 async function handleCreateCommission(request, env, url) {
     const formData = await request.formData();
 
@@ -235,6 +277,10 @@ async function handleApi(request, env, url) {
     const updateMatch = path.match(/^\/api\/commissions\/(\d+)$/);
     if (updateMatch && request.method === "PATCH") {
         return handleUpdateCommission(request, env, updateMatch[1]);
+    }
+
+    if (updateMatch && request.method === "DELETE") {
+        return handleDeleteCommission(request, env, updateMatch[1]);
     }
 
     const refMatch = path.match(/^\/api\/references\/(.+)$/);
