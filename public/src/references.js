@@ -1,4 +1,5 @@
 const referencesInput = document.getElementById("references");
+const referencesPick = document.getElementById("references-pick");
 const referencePreview = document.getElementById("reference-preview");
 
 const previewUrls = [];
@@ -29,6 +30,10 @@ function renderReferencePreview() {
         referencePreview.appendChild(img);
     });
 }
+
+referencesPick.addEventListener("click", () => {
+    referencesInput.click();
+});
 
 referencesInput.addEventListener("change", renderReferencePreview);
 

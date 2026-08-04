@@ -30,8 +30,8 @@
         <div class="social-bar">
             <small>Contact me if you have questions!</small>
             <div class="social-links">
-                <a href="https://www.instagram.com/truclair.arts/" target="_blank"> <i class="fa-brands fa-instagram"></i> </a>
                 <a href="https://discord.com/users/846812955190231080" target="_blank" rel="noopener noreferrer" title="truclair"> <i class="fa-brands fa-discord"></i> </a>
+                <a href="https://www.instagram.com/truclair.arts/" target="_blank"> <i class="fa-brands fa-instagram"></i> </a>
                 <!-- <a href="https://www.deviantart.com/truclair" target="_blank"> <i class="fa-brands fa-deviantart"></i> </a> -->
                 <a href="mailto:truclair@gmail.com"> <i class="fa-solid fa-envelope"></i> </a>
             </div>
@@ -120,13 +120,16 @@
                     </div>
 
                     <div class="upload-section">
-                        <label for="references">Image References</label>
+                        <p class="upload-section-title">Image References</p>
                         <small>Upload one or more image references.</small>
                         <ul>
                                 <li>Count: As many as you want, but please keep them under ~500MB total.</li>
                                 <li>Link: If you keep your references elsewhere, provide a link in the description.</li>
                             </ul>
-                        <input id="references" type="file" accept="image/*" multiple>
+                        <div class="file-upload">
+                            <input id="references" class="file-upload-input" type="file" accept="image/*" multiple>
+                            <button type="button" id="references-pick" class="file-upload-button">Choose images</button>
+                        </div>
                         <div id="reference-preview" class="reference-images"></div>
                         <label for="description">Description</label>
                         <small>Describe your character(s) in detail.</small>
