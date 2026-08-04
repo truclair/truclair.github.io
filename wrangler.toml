@@ -9,11 +9,11 @@ not_found_handling = "single-page-application"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "truclair-commissions"
+database_name = "commissions"
 database_id = "33a95f16-a250-4a4a-853a-51234f5f1e09"
 
 [[r2_buckets]]
 binding = "REFERENCES"
-bucket_name = "truclair-references"
+bucket_name = "commissions"
 
 # Set ADMIN_TOKEN as a secret: wrangler secret put ADMIN_TOKEN
