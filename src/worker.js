@@ -180,24 +180,66 @@ async function handleCommissionCount(env) {
     return jsonResponse({ count: result?.count ?? 0 });
 }
 
+async function ensureStatusToken(env, row) {
+    if (row.status_token) return row.status_token;
+
+    const token = crypto.randomUUID();
+    await env.DATABASE.prepare(
+        `UPDATE commissions SET status_token = ? WHERE id = ? AND status_token IS NULL`
+    ).bind(token, row.id).run();
+
+    return token;
+}
+
 async function handleListCommissions(request, env) {
     const authError = requireAdmin(request, env);
     if (authError) return authError;
 
     const { results } = await env.DATABASE.prepare(
-        `SELECT id, name, email, type, description, status, contact_method, contact_handle, reference_urls, time
+        `SELECT id, name, email, type, description, status, contact_method, contact_handle, reference_urls, status_token, time
          FROM commissions
          ORDER BY time DESC`
     ).all();
 
-    const commissions = results.map((row) => ({
-        ...row,
-        typeLabel: formatCommissionType(row.type),
-        contact: formatContactPreference(row.contact_method, row.contact_handle),
-        references: JSON.parse(row.reference_urls || "[]"),
-    }));
+    const commissions = [];
+    for (const row of results) {
+        const statusToken = await ensureStatusToken(env, row);
+        commissions.push({
+            ...row,
+            status_token: statusToken,
+            typeLabel: formatCommissionType(row.type),
+            contact: formatContactPreference(row.contact_method, row.contact_handle),
+            references: JSON.parse(row.reference_urls || "[]"),
+        });
+    }
 
     return jsonResponse(commissions);
+}
+
+async function handleGetCommissionByStatusToken(env, token) {
+    if (!token) {
+        return errorResponse("Status token is required", 400);
+    }
+
+    const row = await env.DATABASE.prepare(
+        `SELECT name, type, description, status, reference_urls, time
+         FROM commissions
+         WHERE status_token = ?`
+    ).bind(token).first();
+
+    if (!row) {
+        return errorResponse("Commission not found", 404);
+    }
+
+    return jsonResponse({
+        name: row.name,
+        type: row.type,
+        typeLabel: formatCommissionType(row.type),
+        description: row.description,
+        status: row.status,
+        time: row.time,
+        references: JSON.parse(row.reference_urls || "[]"),
+    });
 }
 
 async function handleUpdateCommission(request, env, id) {
@@ -299,6 +341,8 @@ async function handleCreateCommission(request, env, url) {
         });
     }
 
+    const statusToken = crypto.randomUUID();
+
     const webhookMessageId = await notifyNewCommission(env, {
         name,
         email,
@@ -313,9 +357,9 @@ async function handleCreateCommission(request, env, url) {
         `INSERT INTO commissions (
             name, email, type, description, status,
             contact_method, contact_handle,
-            reference_urls, webhook_message_id
+            reference_urls, webhook_message_id, status_token
          )
-         VALUES (?, ?, ?, ?, 'Pending', ?, ?, ?, ?)`
+         VALUES (?, ?, ?, ?, 'Pending', ?, ?, ?, ?, ?)`
     ).bind(
         name,
         email,
@@ -324,10 +368,15 @@ async function handleCreateCommission(request, env, url) {
         contactMethod,
         contactMethod === "email" ? "" : contactHandle,
         JSON.stringify(uploadedUrls),
-        webhookMessageId
+        webhookMessageId,
+        statusToken
     ).run();
 
-    return jsonResponse({ id: result.meta.last_row_id, success: true }, 201);
+    return jsonResponse({
+        id: result.meta.last_row_id,
+        status_token: statusToken,
+        success: true,
+    }, 201);
 }
 
 async function handleServeReference(env, key) {
@@ -361,6 +410,11 @@ async function handleApi(request, env, url) {
 
     if (path === "/api/commissions" && request.method === "POST") {
         return handleCreateCommission(request, env, url);
+    }
+
+    const statusMatch = path.match(/^\/api\/commissions\/status\/([^/]+)$/);
+    if (statusMatch && request.method === "GET") {
+        return handleGetCommissionByStatusToken(env, decodeURIComponent(statusMatch[1]));
     }
 
     const updateMatch = path.match(/^\/api\/commissions\/(\d+)$/);

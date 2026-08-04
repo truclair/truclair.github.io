@@ -47,6 +47,14 @@ export async function deleteCommission(id, adminToken) {
     });
 }
 
+export async function getCommissionByStatusToken(token) {
+    return apiFetch(`/commissions/status/${encodeURIComponent(token)}`);
+}
+
+export function getStatusPageUrl(statusToken) {
+    return `${window.location.origin}/status.html?id=${encodeURIComponent(statusToken)}`;
+}
+
 export function getAdminToken() {
     let token = sessionStorage.getItem("adminToken");
     if (!token) {

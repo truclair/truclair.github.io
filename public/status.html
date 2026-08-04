@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Your Commission</title>
+        <link rel="icon" type="image/png" href="illustration/Icon.png">
+        <link rel="apple-touch-icon" href="illustration/Icon.png">
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+        <meta property="og:title" content="View Your Commission Progress">
+        <meta property="og:description" content= "Sketch • Lineart • Coloring • Rendering">
+        <meta property="og:image" content="https://commissions.truclair.workers.dev/illustration/CommissionPageCard.png">
+        <meta property="og:url" content="https://commissions.truclair.workers.dev/">
+        <meta property="og:type" content="website">
+        
+        <!-- Helps Discord/Twitter show a large preview -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:image" content="https://commissions.truclair.workers.dev/illustration/CommissionPageCard.png">
+        
+    </head>
+    <body>
+
+        <div class="top-gradient"></div>
+
+        <!-- TOPBAR NAVIGATION  -->
+        <!-- <div class="topnav">
+            <a href="#home">Home</a>
+            <a href="#order">Order</a>
+            <a href="#terms">Terms</a>
+            <a href="#submit">Submit</a>
+        </div> -->
+
+        <!-- SOCIAL BAR  -->
+        <div class="social-bar">
+            <small>Contact me if you have questions!</small>
+            <div class="social-links">
+                <a href="https://discord.com/users/846812955190231080" target="_blank" rel="noopener noreferrer" title="truclair"> <i class="fa-brands fa-discord"></i> </a>
+                <a href="https://www.instagram.com/truclair.arts/" target="_blank"> <i class="fa-brands fa-instagram"></i> </a>
+                <!-- <a href="https://www.deviantart.com/truclair" target="_blank"> <i class="fa-brands fa-deviantart"></i> </a> -->
+                <a href="mailto:truclair@gmail.com"> <i class="fa-solid fa-envelope"></i> </a>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- HERO PAGE  -->
+            <section id="home" class="hero">
+                <video class="hero-video" autoplay loop muted playsinline>
+                    <source src="illustration/2026-01-07-Peer-Pressure (Reduced 2).mp4" type="video/mp4">
+                </video>
+                <div class="hero-darken"></div>
+                <h3></h3>
+                <!-- <div class="commission-container">
+                    <p id="count"></p>
+                </div> -->
+            </section>
+
+            
+            <!-- stats.js: Handles queue. -->
+            
+            <div id="commissionDetails" class="commission-container">
+            </div>
+        </div>
+
+        <script type="module" src="src/status.js"></script>
+
+    </body>
+</html>
+

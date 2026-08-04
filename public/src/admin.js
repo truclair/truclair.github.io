@@ -1,4 +1,4 @@
-import { getCommissions, updateCommissionStatus, deleteCommission, getAdminToken } from "./api.js";
+import { getCommissions, updateCommissionStatus, deleteCommission, getAdminToken, getStatusPageUrl } from "./api.js";
 
 function formatDate(timestamp) {
     if (!timestamp) {
@@ -18,6 +18,21 @@ function formatDate(timestamp) {
 }
 
 const list = document.getElementById("commissionList");
+
+async function copyStatusLink(statusToken, button) {
+    const url = getStatusPageUrl(statusToken);
+    try {
+        await navigator.clipboard.writeText(url);
+        const previous = button.textContent;
+        button.textContent = "Copied!";
+        setTimeout(() => {
+            button.textContent = previous;
+        }, 1500);
+    } catch (error) {
+        console.error(error);
+        prompt("Copy this status link:", url);
+    }
+}
 
 async function loadCommissions() {
     const adminToken = getAdminToken();
@@ -91,7 +106,10 @@ async function loadCommissions() {
                     <option ${commission.status === "Paid" ? "selected" : ""}>Paid</option>
                 </select>
 
-                <button type="button" class="admin-delete">Delete commission</button>
+                <div class="admin-actions">
+                    <button type="button" class="admin-copy-link">Copy Link</button>
+                    <button type="button" class="admin-delete">Delete commission</button>
+                </div>
             </div>
         `;
 
@@ -109,6 +127,16 @@ async function loadCommissions() {
                 console.error(error);
                 alert("Failed to update status.");
             }
+        });
+
+        const copyBtn = item.querySelector(".admin-copy-link");
+        copyBtn.addEventListener("click", async (event) => {
+            event.stopPropagation();
+            if (!commission.status_token) {
+                alert("Status link unavailable for this commission.");
+                return;
+            }
+            await copyStatusLink(commission.status_token, copyBtn);
         });
 
         const deleteBtn = item.querySelector(".admin-delete");
