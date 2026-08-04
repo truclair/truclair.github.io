@@ -34,9 +34,39 @@ function r2KeyFromReferenceUrl(referenceUrl) {
     }
 }
 
+function discordWebhookWithWait(webhookUrl) {
+    const url = new URL(webhookUrl);
+    url.searchParams.set("wait", "true");
+    return url.toString();
+}
+
+function discordMessageDeleteUrl(webhookUrl, messageId) {
+    const url = new URL(webhookUrl);
+    url.pathname = `${url.pathname.replace(/\/$/, "")}/messages/${messageId}`;
+    url.search = "";
+    return url.toString();
+}
+
+async function deleteWebhookMessage(env, messageId) {
+    const webhookUrl = env.WEBHOOK_URL;
+    if (!webhookUrl || !messageId) return;
+    if (webhookUrl.includes("hooks.slack.com")) return;
+
+    try {
+        const response = await fetch(discordMessageDeleteUrl(webhookUrl, messageId), {
+            method: "DELETE",
+        });
+        if (!response.ok && response.status !== 404) {
+            console.error("Webhook message delete failed:", response.status, await response.text());
+        }
+    } catch (err) {
+        console.error("Webhook message delete error:", err);
+    }
+}
+
 async function notifyNewCommission(env, { name, email, type, description, referenceUrls, referenceFiles }) {
     const webhookUrl = env.WEBHOOK_URL;
-    if (!webhookUrl) return;
+    if (!webhookUrl) return null;
 
     const displayName = name || "Anonymous";
 
@@ -63,7 +93,7 @@ async function notifyNewCommission(env, { name, email, type, description, refere
             if (!response.ok) {
                 console.error("Webhook failed:", response.status, await response.text());
             }
-            return;
+            return null;
         }
 
         const content = [
@@ -87,30 +117,34 @@ async function notifyNewCommission(env, { name, email, type, description, refere
             allowed_mentions: { parse: ["everyone"] },
         };
 
+        const waitUrl = discordWebhookWithWait(webhookUrl);
+        let response;
+
         if (filesToSend.length === 0) {
-            const response = await fetch(webhookUrl, {
+            response = await fetch(waitUrl, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),
             });
-            if (!response.ok) {
-                console.error("Webhook failed:", response.status, await response.text());
-            }
-            return;
+        } else {
+            const form = new FormData();
+            form.append("payload_json", JSON.stringify(payload));
+            filesToSend.forEach((file, i) => {
+                form.append(`files[${i}]`, file.blob, file.name);
+            });
+            response = await fetch(waitUrl, { method: "POST", body: form });
         }
 
-        const form = new FormData();
-        form.append("payload_json", JSON.stringify(payload));
-        filesToSend.forEach((file, i) => {
-            form.append(`files[${i}]`, file.blob, file.name);
-        });
-
-        const response = await fetch(webhookUrl, { method: "POST", body: form });
         if (!response.ok) {
             console.error("Webhook failed:", response.status, await response.text());
+            return null;
         }
+
+        const message = await response.json();
+        return message?.id || null;
     } catch (err) {
         console.error("Webhook error:", err);
+        return null;
     }
 }
 
@@ -168,12 +202,14 @@ async function handleDeleteCommission(request, env, id) {
     if (authError) return authError;
 
     const row = await env.DATABASE.prepare(
-        `SELECT reference_urls FROM commissions WHERE id = ?`
+        `SELECT reference_urls, webhook_message_id FROM commissions WHERE id = ?`
     ).bind(id).first();
 
     if (!row) {
         return errorResponse("Commission not found", 404);
     }
+
+    await deleteWebhookMessage(env, row.webhook_message_id);
 
     const referenceUrls = JSON.parse(row.reference_urls || "[]");
     for (const refUrl of referenceUrls) {
@@ -231,12 +267,7 @@ async function handleCreateCommission(request, env, url) {
         });
     }
 
-    const result = await env.DATABASE.prepare(
-        `INSERT INTO commissions (name, email, type, description, status, reference_urls)
-         VALUES (?, ?, ?, ?, 'Pending', ?)`
-    ).bind(name, email, type, description, JSON.stringify(uploadedUrls)).run();
-
-    await notifyNewCommission(env, {
+    const webhookMessageId = await notifyNewCommission(env, {
         name,
         email,
         type,
@@ -244,6 +275,18 @@ async function handleCreateCommission(request, env, url) {
         referenceUrls: uploadedUrls,
         referenceFiles,
     });
+
+    const result = await env.DATABASE.prepare(
+        `INSERT INTO commissions (name, email, type, description, status, reference_urls, webhook_message_id)
+         VALUES (?, ?, ?, ?, 'Pending', ?, ?)`
+    ).bind(
+        name,
+        email,
+        type,
+        description,
+        JSON.stringify(uploadedUrls),
+        webhookMessageId
+    ).run();
 
     return jsonResponse({ id: result.meta.last_row_id, success: true }, 201);
 }

@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS commissions (
     description TEXT NOT NULL DEFAULT '',
     status TEXT NOT NULL DEFAULT 'Pending',
     reference_urls TEXT NOT NULL DEFAULT '[]',
+    webhook_message_id TEXT,
     time TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
