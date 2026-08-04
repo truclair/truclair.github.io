@@ -26,6 +26,76 @@ function requireAdmin(request, env) {
   return null;
 }
 __name(requireAdmin, "requireAdmin");
+async function notifyNewCommission(env, { name, email, type, description, referenceUrls, referenceFiles }) {
+  const webhookUrl = env.WEBHOOK_URL;
+  if (!webhookUrl) return;
+  const displayName = name || "Anonymous";
+  const refCount = referenceFiles.length;
+  const refLabel = refCount === 0 ? "None" : `${refCount} image${refCount === 1 ? "" : "s"} attached`;
+  try {
+    if (webhookUrl.includes("hooks.slack.com")) {
+      const refs = referenceUrls.length > 0 ? referenceUrls.map((u) => u).join("\n") : "None";
+      const response2 = await fetch(webhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          text: [
+            `*New commission request*`,
+            `*Name:* ${displayName}`,
+            `*Email:* ${email}`,
+            `*Type:* ${type}`,
+            `*Description:* ${description || "(none)"}`,
+            `*References:*
+${refs}`
+          ].join("\n")
+        })
+      });
+      if (!response2.ok) {
+        console.error("Webhook failed:", response2.status, await response2.text());
+      }
+      return;
+    }
+    const embed = {
+      title: "New commission request",
+      color: 10181046,
+      fields: [
+        { name: "Name", value: displayName, inline: true },
+        { name: "Email", value: email, inline: true },
+        { name: "Type", value: type, inline: true },
+        { name: "Description", value: description || "(none)" },
+        { name: "References", value: refLabel }
+      ],
+      timestamp: (/* @__PURE__ */ new Date()).toISOString()
+    };
+    if (referenceFiles.length > 0) {
+      embed.image = { url: `attachment://${referenceFiles[0].name}` };
+    }
+    const payload = { embeds: [embed] };
+    if (referenceFiles.length === 0) {
+      const response2 = await fetch(webhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      if (!response2.ok) {
+        console.error("Webhook failed:", response2.status, await response2.text());
+      }
+      return;
+    }
+    const form = new FormData();
+    form.append("payload_json", JSON.stringify(payload));
+    referenceFiles.forEach((file, i) => {
+      form.append(`files[${i}]`, file.blob, file.name);
+    });
+    const response = await fetch(webhookUrl, { method: "POST", body: form });
+    if (!response.ok) {
+      console.error("Webhook failed:", response.status, await response.text());
+    }
+  } catch (err) {
+    console.error("Webhook error:", err);
+  }
+}
+__name(notifyNewCommission, "notifyNewCommission");
 async function handleCommissionCount(env) {
   const result = await env.DATABASE.prepare(
     `SELECT COUNT(*) as count FROM commissions
@@ -76,19 +146,36 @@ async function handleCreateCommission(request, env, url) {
     return errorResponse("Email and commission type are required");
   }
   const uploadedUrls = [];
+  const referenceFiles = [];
   const files = formData.getAll("references");
-  for (const file of files) {
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
     if (!(file instanceof File) || file.size === 0) continue;
-    const key = `${Date.now()}-${file.name}`;
-    await env.REFERENCES.put(key, file.stream(), {
-      httpMetadata: { contentType: file.type || "application/octet-stream" }
+    const key = `${Date.now()}-${i}-${file.name}`;
+    const buffer = await file.arrayBuffer();
+    const contentType = file.type || "application/octet-stream";
+    await env.REFERENCES.put(key, buffer, {
+      httpMetadata: { contentType }
     });
     uploadedUrls.push(`${url.origin}/api/references/${encodeURIComponent(key)}`);
+    const attachmentName = `ref-${i + 1}-${file.name.replace(/[^\w.-]/g, "_")}`;
+    referenceFiles.push({
+      name: attachmentName,
+      blob: new Blob([buffer], { type: contentType })
+    });
   }
   const result = await env.DATABASE.prepare(
     `INSERT INTO commissions (name, email, type, description, status, reference_urls)
          VALUES (?, ?, ?, ?, 'Pending', ?)`
   ).bind(name, email, type, description, JSON.stringify(uploadedUrls)).run();
+  await notifyNewCommission(env, {
+    name,
+    email,
+    type,
+    description,
+    referenceUrls: uploadedUrls,
+    referenceFiles
+  });
   return jsonResponse({ id: result.meta.last_row_id, success: true }, 201);
 }
 __name(handleCreateCommission, "handleCreateCommission");
@@ -190,7 +277,7 @@ var jsonError = /* @__PURE__ */ __name(async (request, env, _ctx, middlewareCtx)
 }, "jsonError");
 var middleware_miniflare3_json_error_default = jsonError;
 
-// .wrangler/tmp/bundle-C13gu8/middleware-insertion-facade.js
+// .wrangler/tmp/bundle-fBtwlU/middleware-insertion-facade.js
 var __INTERNAL_WRANGLER_MIDDLEWARE__ = [
   middleware_ensure_req_body_drained_default,
   middleware_miniflare3_json_error_default
@@ -222,7 +309,7 @@ function __facade_invoke__(request, env, ctx, dispatch, finalMiddleware) {
 }
 __name(__facade_invoke__, "__facade_invoke__");
 
-// .wrangler/tmp/bundle-C13gu8/middleware-loader.entry.ts
+// .wrangler/tmp/bundle-fBtwlU/middleware-loader.entry.ts
 var __Facade_ScheduledController__ = class ___Facade_ScheduledController__ {
   constructor(scheduledTime, cron, noRetry) {
     this.scheduledTime = scheduledTime;
