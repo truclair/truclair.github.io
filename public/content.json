@@ -4,64 +4,100 @@
             "name": "Headshot",
             "value": "head",
             "prices": [
-                "~$7.5 / sketch",
-                "~$10 / color"
+                "$10"
             ],
             "images": [
-                "illustration/Icon.png"
+                "illustration/Head.png"
             ]
         },
         {
             "name": "Half Body",
             "value": "half",
             "prices": [
-                "~$15 / sketch",
-                "~$25 / color"
+                "$25"
             ],
             "images": [
-                "illustration/Half1.png",
-                "illustration/Half2.png"
+                "illustration/Half.png"
             ]
         },
         {
             "name": "Full Body",
             "value": "full",
             "prices": [
-                "~$40 / sketch",
-                "~$50 / color"
+                "$40"
             ],
             "images": [
-                "illustration/2026-06-30-Homecoming.png"
-            ]
-        },
-        {
-            "name": "Custom",
-            "value": "custom",
-            "prices": [
-                ""
-            ],
-            "images": [
-                "illustration/2025-11-25-Fighting.png",
-                "illustration/Heartache.png",
-                "illustration/Stage.png"
+                "illustration/Full.png"
             ]
         }
     ],
 
     "tos": {
-        "updated": "8/1/2026",
-        "terms": [
-            "No lewd or NSFW content.",
-            "Please provide references and a brief description of your character's personality.",
-            "Commissions are completed in the order and pace that fits my workload. Feel free to ask for progress updates!",
-            "The canvas sizes above are a base. Feel free to specify any desired canvas size.",
-            "Payment is in USD via PayPal only (@KevinAromin).",
-            "A 50% deposit is required upfront.",
-            "The remaining 50% will be required when the completed artwork is sent in.",
-            "Intricate details may be simplified to suit my art style.",
-            "Commercial work is quoted separately.",
-            "Commissioned artwork may not be used commercially or for NFTs.",
-            "I may post commissioned artwork on social media unless requested otherwise."
+        "updated": "8/4/2026",
+        "willDraw": [
+            "OCs",
+            "Furry",
+            "Anthro",
+            "Humanoid",
+            "Fantasy & Mythical Creatures",
+            "Couples & Ship Art",
+            "Sensitive Content",
+            "Light Gore",
+            "Fanart"
+        ],
+        "wontDraw": [
+            "NSFW",
+            "Hate Speech",
+            "Fetish Content",
+            "Offensive / Illegal Content",
+            "Stolen / Traced Characters",
+            "AI Training / NFTs",
+            "Extreme Gore",
+            "Mecha",
+            "Hyper Realistic"
+        ],
+        "sections": [
+            {
+                "title": "Payment",
+                "items": [
+                    "All payments are in PayPal & USD.",
+                    "Full payment is required upfront, and must be approved by both parties before an invoice is sent.",
+                    "After the invoice is sent, work will shortly begin. Be sure to check your email and confirm.",
+                    "If I must discontinue the commission before work begins, you will receive a full refund.",
+                    "Otherwise, after work begins, no refunds or holds will be accepted unless I reach out to you."
+                ]
+            },
+            {
+                "title": "Work & Progress",
+                "items": [
+                    "I will automatically send you updates during every stage: Sketch, Lineart, Color, Rendering.",
+                    "During the sketch or lineart stages, you can request major changes for free. Major changes include: Changing the pose, body expression, composition, etc.",
+                    "During the color or rendering stages, you can request minor changes for free. Minor changes include: Changing the hands, facial expression, facial features, shapes, accessory details, color values, etc.",
+                    "Feel free to ask for additional progress updates!"
+                ]
+            },
+            {
+                "title": "Acceptable Use",
+                "items": [
+                    "Don't make big edits on my artwork under any circumstances. If edits are needed, please let me know before the commission is completed.",
+                    "My artwork will not be used for NFTs or AIs. If you notice someone using my work for NFTs or AIs, please let me know.",
+                    "Unless requested, I may post commissioned artwork on social media."
+                ]
+            },
+            {
+                "title": "Commercial Use",
+                "items": [
+                    "If you plan on using the commission for commercial use, let me know. The price quoted above will be adjusted according to the scale of the project."
+                ]
+            },
+            {
+                "title": "Community Guidelines",
+                "items": [
+                    "By commissioning me, you accept the ToS.",
+                    "Requesting me to draw something on my \"Won't Draw\" list, or general rude behavior, will not be accepted.",
+                    "Failure to respect the rules will result in being blocked & blacklisted."
+                ]
+            }
         ]
     }
 }

@@ -28,7 +28,7 @@
 
         <!-- SOCIAL BAR  -->
         <div class="social-bar">
-            <p>Contact me if you have questions!</p>
+            <small>Contact me if you have questions!</small>
             <div class="social-links">
                 <a href="https://www.instagram.com/truclair.arts/" target="_blank"> <i class="fa-brands fa-instagram"></i> </a>
                 <a href="https://discord.com/users/846812955190231080" target="_blank" rel="noopener noreferrer" title="truclair"> <i class="fa-brands fa-discord"></i> </a>
@@ -45,28 +45,36 @@
             <div class="hero-darken"></div>
             <div class="hero-content">
                 <h1>TRUCLAIR</h1>
-                <div class="commission-container">
-                    <p id="count"></p>
-                    <label>Welcome!</label>
-                    <ol>
-                        <li>Select any of the pricing options below.</li>
-                        <li>Read the Terms of Service.</li>
-                        <li>Fill our your contact info (name and email address).</li>
-                        <li>Specfify what you want in your commission, annd include any reference images!</li>
-                        <li>I will confirm details via truclair@gmail.com (or via Discord) and get started.</li>
-                    </ol>
-                </div>
+                <label class="hero-intro">Welcome! Follow these steps to submit a commission request:</label>
+                <ol class="hero-steps">
+                    <li>Select any of the pricing options below.</li>
+                    <li>Read the Terms of Service.</li>
+                    <li>Fill out the commission form.</li>
+                    <li>I will confirm details via truclair@gmail.com (or via Discord or Instagram) and get started!</li>
+                </ol>
             </div>
         </section>
 
         <div class="content">
             
+            <div class="commission-container">
+                <p id="count"></p>
+            </div>
             <!-- stats.js: Handles queue. -->
             
             <section id="order" class="order">
 
-                <!-- cards.js: Presents the user with a list of commission types. -->
-                <div class="commission-types" id="commission-types"></div>
+                <div id="commissionForm" class="commission-container">
+                    <!-- cards.js: Presents the user with a list of commission types. -->
+                    <label>Select one of the following commission types:</label>
+                    <div class="commission-types" id="commission-types"></div>
+                    <label>Extras</label>
+                    <small>+$20 for complex backgrounds.</small>
+                    <small>+$50% of base price for each additional character.</small>
+                    <small>+$20% of base price for content creation commercial use (may vary depending on the project).</small>
+                    <small>+$50% of base price for merch creation commercial use (may vary depending on the project).</small>
+                    <small></small>
+                </div>
 
             </section>
 
@@ -76,16 +84,29 @@
                         <!-- tos.js & tos.json: displays the terms of service in a numbered list -->
                         <label> Terms of Service </label>
                         <small id="tos-updated"></small>
-                        <ol id="tos-list"></ol>
+                        <div class="tos-subcards">
+                            <div class="tos-subcard">
+                                <h3>I Will Draw:</h3>
+                                <ul id="tos-will-draw"></ul>
+                            </div>
+                            <div class="tos-subcard">
+                                <h3>I Won't Draw:</h3>
+                                <ul id="tos-wont-draw"></ul>
+                            </div>
+                        </div>
+                        <div id="tos-sections" class="tos-sections"></div>
                     </div>
                     
                     <div class="upload-section">
                         <p class="upload-section-title">Information</p>
                         <label for="name">Name</label>
+                        <small>As credited!</small>
                         <input id="name" type="text" placeholder="Your name">
                         <label for="email">Email</label>
+                        <small>For payments & invoicing.</small>
                         <input id="email" type="email" placeholder="Your email*" required>
-                        <label for="contact-method">Contact Method</label>
+                        <label for="contact-method">Contact</label>
+                        <small>Where can I reach out?</small>
                         <div id="contact-row" class="contact-row">
                             <select id="contact-method" class="contact-method">
                                 <option value="email" selected>Email</option>
@@ -99,16 +120,30 @@
                     </div>
 
                     <div class="upload-section">
-                        <label for="references">Reference Images</label>
-                        <small>Upload one or more reference images.</small>
+                        <label for="references">Image References</label>
+                        <small>Upload one or more image references.</small>
+                        <ul>
+                                <li>Count: As many as you want, but please keep them under ~500MB total.</li>
+                                <li>Link: If you keep your references elsewhere, provide a link in the description.</li>
+                            </ul>
                         <input id="references" type="file" accept="image/*" multiple>
-                        <small>Describe background details, number of characters, etc.</small>
-                        <small>If this is a custom commission, please describe the concept and any details you want included.</small>
-                        <small>Use bullet points to outline your commission details!</small>
-                        <textarea id="description" placeholder="Provide any details for the commission"></textarea>
+                        <label for="references">Description</label>
+                        <small>Describe your character(s) in detail.</small>
+                        <ul>
+                            <li>Physical Appearance: Build, body, face, hair, color, scars, markings...</li>
+                            <li>About the Character(s): What they're like, what they value, what they do...</li>
+                            <li>Background: Simple (FREE), complex (+$20), any other details.</li>
+                            <li>Pose & Expression: For this specific commission.</li>
+                            <li>Include anything else you want to add!</li>
+                        </ul>
+                        <textarea id="description" placeholder="Provide any details for the commission (bullet points recommended)"></textarea>
 
                     </div>
+                    
                     <label id = "tos-checkbox" class="tos-checkbox">
+
+
+                        
                     <input id="tos" type="checkbox">
                     <span>*I have read, understood, and agree to the Terms of Service.</span>
                     </label>
