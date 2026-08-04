@@ -360,7 +360,8 @@ COMMISSION FORM
 
 .commission-container textarea {
 
-    min-height: 180px;
+    /* min-height: 180px; */
+    min-height: 320px;
     resize: vertical;
 
     line-height: 1.6;
