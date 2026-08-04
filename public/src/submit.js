@@ -1,5 +1,6 @@
 import { submitCommission } from "./api.js";
 import { clearReferencePreview } from "./references.js";
+import { resetDescription } from "./description.js";
 
 const submitButton = document.getElementById("submit");
 const progress = document.getElementById("upload-progress");
@@ -66,7 +67,7 @@ submitButton.addEventListener("click", async (event) => {
         document.querySelectorAll('input[name="type"]').forEach(input => {
             input.checked = false;
         });
-        document.getElementById("description").value = "";
+        resetDescription();
         document.getElementById("references").value = "";
         clearReferencePreview();
         document.getElementById("contact-method").value = "email";
