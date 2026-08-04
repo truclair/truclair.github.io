@@ -10,7 +10,7 @@ not_found_handling = "single-page-application"
 [[d1_databases]]
 binding = "DB"
 database_name = "truclair-commissions"
-database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+database_id = "33a95f16-a250-4a4a-853a-51234f5f1e09"
 
 [[r2_buckets]]
 binding = "REFERENCES"
