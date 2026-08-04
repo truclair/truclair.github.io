@@ -66,7 +66,13 @@ async function deleteWebhookMessage(env, messageId) {
   }
 }
 __name(deleteWebhookMessage, "deleteWebhookMessage");
-async function notifyNewCommission(env, { name, email, type, description, referenceUrls, referenceFiles }) {
+function formatContactPreference(method, handle) {
+  if (method === "instagram") return `Instagram \u2014 ${handle || "(not provided)"}`;
+  if (method === "discord") return `Discord \u2014 ${handle || "(not provided)"}`;
+  return "Email";
+}
+__name(formatContactPreference, "formatContactPreference");
+async function notifyNewCommission(env, { name, email, type, description, contact, referenceUrls, referenceFiles }) {
   const webhookUrl = env.WEBHOOK_URL;
   if (!webhookUrl) return null;
   const displayName = name || "Anonymous";
@@ -82,6 +88,7 @@ async function notifyNewCommission(env, { name, email, type, description, refere
             `*New commission request*`,
             `*Name:* ${displayName}`,
             `*Email:* ${email}`,
+            `*Contact:* ${contact}`,
             `*Type:* ${type}`,
             `*Description:* ${description || "(none)"}`,
             `*References:*
@@ -100,6 +107,7 @@ ${refs}`
       "**New commission request**",
       `**Name:** ${displayName}`,
       `**Email:** ${email}`,
+      `**Contact:** ${contact}`,
       `**Type:** ${type}`,
       `**Description:** ${description || "(none)"}`
     ].join("\n");
@@ -152,12 +160,13 @@ async function handleListCommissions(request, env) {
   const authError = requireAdmin(request, env);
   if (authError) return authError;
   const { results } = await env.DATABASE.prepare(
-    `SELECT id, name, email, type, description, status, reference_urls, time
+    `SELECT id, name, email, type, description, status, contact_method, contact_handle, reference_urls, time
          FROM commissions
          ORDER BY time DESC`
   ).all();
   const commissions = results.map((row) => ({
     ...row,
+    contact: formatContactPreference(row.contact_method, row.contact_handle),
     references: JSON.parse(row.reference_urls || "[]")
   }));
   return jsonResponse(commissions);
@@ -212,8 +221,14 @@ async function handleCreateCommission(request, env, url) {
   const email = formData.get("email")?.toString();
   const type = formData.get("type")?.toString();
   const description = formData.get("description")?.toString() || "";
+  const contactMethod = formData.get("contact_method")?.toString() || "email";
+  const contactHandle = (formData.get("contact_handle")?.toString() || "").trim();
+  const contact = formatContactPreference(contactMethod, contactHandle);
   if (!email || !type) {
     return errorResponse("Email and commission type are required");
+  }
+  if ((contactMethod === "instagram" || contactMethod === "discord") && !contactHandle) {
+    return errorResponse("Please provide your contact username");
   }
   const uploadedUrls = [];
   const referenceFiles = [];
@@ -239,17 +254,24 @@ async function handleCreateCommission(request, env, url) {
     email,
     type,
     description,
+    contact,
     referenceUrls: uploadedUrls,
     referenceFiles
   });
   const result = await env.DATABASE.prepare(
-    `INSERT INTO commissions (name, email, type, description, status, reference_urls, webhook_message_id)
-         VALUES (?, ?, ?, ?, 'Pending', ?, ?)`
+    `INSERT INTO commissions (
+            name, email, type, description, status,
+            contact_method, contact_handle,
+            reference_urls, webhook_message_id
+         )
+         VALUES (?, ?, ?, ?, 'Pending', ?, ?, ?, ?)`
   ).bind(
     name,
     email,
     type,
     description,
+    contactMethod,
+    contactMethod === "email" ? "" : contactHandle,
     JSON.stringify(uploadedUrls),
     webhookMessageId
   ).run();

@@ -31,6 +31,7 @@
             <p>Contact me if you have questions!</p>
             <div class="social-links">
                 <a href="https://www.instagram.com/truclair.arts/" target="_blank"> <i class="fa-brands fa-instagram"></i> </a>
+                <a href="https://discord.com/users/846812955190231080" target="_blank" rel="noopener noreferrer" title="truclair"> <i class="fa-brands fa-discord"></i> </a>
                 <a href="https://www.deviantart.com/truclair" target="_blank"> <i class="fa-brands fa-deviantart"></i> </a>
                 <a href="mailto:truclair@gmail.com"> <i class="fa-solid fa-envelope"></i> </a>
             </div>
@@ -51,8 +52,8 @@
                         <li>Select any of the pricing options below.</li>
                         <li>Read the Terms of Service.</li>
                         <li>Fill our your contact info (name and email address).</li>
-                        <li>Don't forget to specfify what you want in your commission!</li>
-                        <li>I will confirm details via truclair@gmail.com and get started.</li>
+                        <li>Specfify what you want in your commission, annd include any reference images!</li>
+                        <li>I will confirm details via truclair@gmail.com (or via Discord) and get started.</li>
                     </ol>
                 </div>
             </div>
@@ -80,18 +81,32 @@
                     
                     <div class="upload-section">
                         <p class="upload-section-title">Information</p>
-                        <label for="name">Your name</label>
+                        <label for="name">Name</label>
                         <input id="name" type="text" placeholder="Your name">
-                        <label for="email">Email*</label>
-                        <input id="email" type="email" placeholder="Email*" required>
+                        <label for="email">Email</label>
+                        <input id="email" type="email" placeholder="Your email*" required>
+                        <label for="contact-method">Contact Method</label>
+                        <div id="contact-row" class="contact-row">
+                            <select id="contact-method" class="contact-method">
+                                <option value="email" selected>Email</option>
+                                <option value="instagram">Instagram</option>
+                                <option value="discord">Discord</option>
+                            </select>
+                            <div id="contact-panel" class="contact-panel">
+                                <input id="contact-handle" type="text" placeholder="Your username*" autocomplete="off" aria-label="Contact username">
+                            </div>
+                        </div>
                     </div>
 
                     <div class="upload-section">
-                        <label for="references">Reference images</label>
+                        <label for="references">Reference Images</label>
                         <small>Upload one or more reference images.</small>
                         <input id="references" type="file" accept="image/*" multiple>
-                        <small>Describe here (background or solid color, number of characters, etc.).</small>
+                        <small>Describe background details, number of characters, etc.</small>
+                        <small>If this is a custom commission, please describe the concept and any details you want included.</small>
+                        <small>Use bullet points to outline your commission details!</small>
                         <textarea id="description" placeholder="Provide any details for the commission"></textarea>
+
                     </div>
                     <label id = "tos-checkbox" class="tos-checkbox">
                     <input id="tos" type="checkbox">
@@ -109,6 +124,7 @@
         <script type="module" src="src/tos.js"></script>
         <script type="module" src="src/stats.js"></script>
         <script type="module" src="src/cards.js"></script>
+        <script type="module" src="src/contact.js"></script>
 
     </body>
 </html>
