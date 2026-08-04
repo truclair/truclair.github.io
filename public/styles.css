@@ -496,23 +496,32 @@ COMMISSION FORM
 }
 
 .file-upload {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 12px;
+    overflow: hidden;
 }
 
-.file-upload-input {
+.commission-container input.file-upload-input {
     position: absolute;
-    width: 1px;
-    height: 1px;
+    left: 0;
+    top: 0;
+    width: 1px !important;
+    max-width: 1px !important;
+    min-width: 0 !important;
+    height: 1px !important;
     padding: 0 !important;
-    margin: -1px;
+    margin: 0 !important;
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
     white-space: nowrap;
-    border: 0;
+    border: 0 !important;
     opacity: 0;
     pointer-events: none;
+    box-shadow: none !important;
+    background: transparent !important;
 }
 
 .commission-container .file-upload-button {
