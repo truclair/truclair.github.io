@@ -48,14 +48,14 @@
 
         <div class="content">
             
+            <!-- stats.js: Handles queue. -->
             <p id="count"></p>
             
             <section id="order" class="order">
 
                 <p>Prices may change depending on request.</p>
                 <p>(Multiple chaacters, background complexity, flat colors vs shaded, etc.)</p>
-
-                <!-- commission_types.js: Presents the user with a list of commission types. -->
+                <!-- cards.js: Presents the user with a list of commission types. -->
                 <div class="commission-types" id="commission-types"></div>
 
             </section>
@@ -71,84 +71,33 @@
                     
                     <div class="upload-section">
                         <label for="references">Information</label>
-                        <input id="name" type="text" placeholder="Your name" >
-                        <input
-                            id="email"
-                            type="email"
-                            placeholder="Email or other contact info*"
-                            >
+                        <input id="name" type="text" placeholder="Your name">
+                        <input id="email" type="email" placeholder="Email*">
                     </div>
 
                     <div class="upload-section">
-                        <!-- <label for="references">Character References</label> -->
                         <small>Upload one or more reference images.</small>
-                        <input
-                            id="references"
-                            type="file"
-                            accept="image/*"
-                            multiple>
-
-                        <!-- <label for="references">Character Description</label> -->
+                        <input id="references" type="file" accept="image/*" multiple>
                         <small>Describe here (background or solid color, number of characters, etc.).</small>
-                        <textarea
-                            id="description"
-                            placeholder="Provide any details for the commission"
-                            ></textarea>
+                        <textarea id="description" placeholder="Provide any details for the commission"></textarea>
                     </div>
-
                     <label id = "tos-checkbox" class="tos-checkbox">
-                        <input
-                            id="tos"
-                            type="checkbox"
-                            >
-                        <span>*I have read, understood, and agree to the Terms of Service.</span>
+                    <input id="tos" type="checkbox">
+                    <span>*I have read, understood, and agree to the Terms of Service.</span>
                     </label>
-                    <small>
-                        Please read the Terms of Service above before submitting. You must agree to continue.
-                    </small>
-
-                    <button id="submit">
-                        Submit Commission Request
-                    </button>
-
-                    <div id="upload-progress" class="upload-progress">
-                        <div id="upload-bar"></div>
-                    </div>
-
-
+                    <small>Please read the Terms of Service above before submitting. You must agree to continue.</small>
+                    <!-- app.js: Handles submissions. -->
+                    <button id="submit">Submit Commission Request</button>
+                    <div id="upload-progress" class="upload-progress"> <div id="upload-bar"></div> </div>
                 </form>
             </section>
-    
-
         </div>
 
-        <!-- IMAGE PREVIEW -->
-        <div id="viewer" class="viewer">
-            <img id="viewer-image">
-        </div>
+        <script type="module" src="src/app.js"></script>
+        <script type="module" src="src/tos.js"></script>
+        <script type="module" src="src/stats.js"></script>
+        <script type="module" src="src/cards.js"></script>
 
-
-        <script>
-        const viewer = document.getElementById("viewer");
-        const viewerImage = document.getElementById("viewer-image");
-        document.querySelectorAll(".card img").forEach(img => {
-            img.addEventListener("click", () => {
-                const preload = new Image();
-                preload.onload = () => {
-                    viewerImage.src = preload.src;
-                    viewer.classList.add("active");
-                };
-                preload.src = img.src;
-            });
-        });
-        viewer.addEventListener("click", () => {
-            viewer.classList.remove("active");
-        });
-        </script>
-        <script type="module" src="scripts/app.js"></script>
-        <script type="module" src="scripts/tos.js"></script>
-        <script type="module" src="scripts/stats.js"></script>
-        <script type="module" src="scripts/cards.js"></script>
     </body>
 </html>
 
