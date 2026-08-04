@@ -45,7 +45,7 @@ async function loadCommissionStatus() {
 
         details.innerHTML = `
             <h2>Commission Status</h2>
-            <p class="status-badge"><strong>Status</strong><br><span>${escapeHtml(commission.status)}</span></p>
+            <p class="status-badge"><strong>Status</strong><br><span>${escapeHtml(commission.statusLabel || commission.status)}</span></p>
             <p><strong>Name</strong><br>${escapeHtml(commission.name) || "—"}</p>
             <p><strong>Type</strong><br>${escapeHtml(commission.typeLabel || commission.type)}</p>
             <p><strong>Submitted</strong><br>${escapeHtml(formatDate(commission.time))}</p>

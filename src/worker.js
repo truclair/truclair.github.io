@@ -76,15 +76,31 @@ const COMMISSION_TYPE_LABELS = {
     full: "Full Body",
 };
 
+const COMMISSION_STATUS_LABELS = {
+    Pending: "Pending",
+    Accepted: "Accepted - Awaiting Payment",
+    Paid: "Payment Received - Awaiting Progress",
+    Sketch: "Sketch - 0% to 25% Complete",
+    Lineart: "Lineart - 25% to 50% Complete",
+    Coloring: "Coloring - 50% to 75% Complete",
+    Shading: "Shading - 75% to 100% Complete",
+    Completed: "Completed!",
+};
+
 function formatCommissionType(type) {
     return COMMISSION_TYPE_LABELS[type] || type;
 }
 
-async function notifyNewCommission(env, { name, email, type, description, contact, referenceUrls, referenceFiles }) {
+function formatCommissionStatus(status) {
+    return COMMISSION_STATUS_LABELS[status] || status;
+}
+
+async function notifyNewCommission(env, { name, email, type, description, contact, statusUrl, referenceUrls, referenceFiles }) {
     const webhookUrl = env.WEBHOOK_URL;
     if (!webhookUrl) return null;
 
     const displayName = name || "Anonymous";
+    const statusLine = statusUrl ? `**Status:** ${statusUrl}` : null;
 
     try {
         if (webhookUrl.includes("hooks.slack.com")) {
@@ -104,10 +120,11 @@ async function notifyNewCommission(env, { name, email, type, description, contac
                         `**Contact:** ${contact}`,
                         `**Type:** ${formatCommissionType(type)}`,
                         `**Description:** ${description || "(none)"}`,
+                        statusLine,
                         `**References:**\n${refs}`,
                         ``,
                         "<!channel>",
-                    ].join("\n"),
+                    ].filter(Boolean).join("\n"),
                 }),
             });
             if (!response.ok) {
@@ -125,9 +142,10 @@ async function notifyNewCommission(env, { name, email, type, description, contac
             `**Contact:** ${contact}`,
             `**Type:** ${formatCommissionType(type)}`,
             `**Description:** ${description || "(none)"}`,
+            statusLine,
             ``,
             "@everyone",
-        ].join("\n");
+        ].filter(Boolean).join("\n");
 
         const filesToSend = referenceFiles.slice(0, 10);
         const imageEmbeds = filesToSend.map((file) => ({
@@ -174,7 +192,7 @@ async function notifyNewCommission(env, { name, email, type, description, contac
 async function handleCommissionCount(env) {
     const result = await env.DATABASE.prepare(
         `SELECT COUNT(*) as count FROM commissions
-         WHERE status IN ('Accepted', 'Deposit', 'Progress')`
+         WHERE status IN ('Accepted', 'Paid', 'Sketch', 'Lineart', 'Coloring', 'Shading')`
     ).first();
 
     return jsonResponse({ count: result?.count ?? 0 });
@@ -208,6 +226,7 @@ async function handleListCommissions(request, env) {
             ...row,
             status_token: statusToken,
             typeLabel: formatCommissionType(row.type),
+            statusLabel: formatCommissionStatus(row.status),
             contact: formatContactPreference(row.contact_method, row.contact_handle),
             references: JSON.parse(row.reference_urls || "[]"),
         });
@@ -237,6 +256,7 @@ async function handleGetCommissionByStatusToken(env, token) {
         typeLabel: formatCommissionType(row.type),
         description: row.description,
         status: row.status,
+        statusLabel: formatCommissionStatus(row.status),
         time: row.time,
         references: JSON.parse(row.reference_urls || "[]"),
     });
@@ -342,6 +362,7 @@ async function handleCreateCommission(request, env, url) {
     }
 
     const statusToken = crypto.randomUUID();
+    const statusUrl = `${url.origin}/status.html?id=${encodeURIComponent(statusToken)}`;
 
     const webhookMessageId = await notifyNewCommission(env, {
         name,
@@ -349,6 +370,7 @@ async function handleCreateCommission(request, env, url) {
         type,
         description,
         contact,
+        statusUrl,
         referenceUrls: uploadedUrls,
         referenceFiles,
     });

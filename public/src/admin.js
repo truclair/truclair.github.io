@@ -1,4 +1,5 @@
 import { getCommissions, updateCommissionStatus, deleteCommission, getAdminToken, getStatusPageUrl } from "./api.js";
+import { COMMISSION_STATUSES, formatCommissionStatus } from "./statuses.js";
 
 function formatDate(timestamp) {
     if (!timestamp) {
@@ -15,6 +16,13 @@ function formatDate(timestamp) {
         minute: "2-digit",
         hour12: true,
     });
+}
+
+function statusOptionsHtml(currentStatus) {
+    return COMMISSION_STATUSES.map((status) => {
+        const selected = currentStatus === status ? "selected" : "";
+        return `<option value="${status}" ${selected}>${formatCommissionStatus(status)}</option>`;
+    }).join("");
 }
 
 const list = document.getElementById("commissionList");
@@ -77,7 +85,7 @@ async function loadCommissions() {
                     <h3>${commission.name}</h3>
                     <small>${formatDate(commission.time)}</small>
                 </div>
-                <span class="admin-status">${commission.status}</span>
+                <span class="admin-status">${formatCommissionStatus(commission.status)}</span>
             </div>
 
             <div class="admin-details">
@@ -98,12 +106,7 @@ async function loadCommissions() {
                 </div>
 
                 <select>
-                    <option ${commission.status === "Pending" ? "selected" : ""}>Pending</option>
-                    <option ${commission.status === "Accepted" ? "selected" : ""}>Accepted</option>
-                    <option ${commission.status === "Deposit" ? "selected" : ""}>Deposit</option>
-                    <option ${commission.status === "Progress" ? "selected" : ""}>Progress</option>
-                    <option ${commission.status === "Completed" ? "selected" : ""}>Completed</option>
-                    <option ${commission.status === "Paid" ? "selected" : ""}>Paid</option>
+                    ${statusOptionsHtml(commission.status)}
                 </select>
 
                 <div class="admin-actions">
@@ -122,7 +125,7 @@ async function loadCommissions() {
         select.addEventListener("change", async () => {
             try {
                 await updateCommissionStatus(commission.id, select.value, adminToken);
-                item.querySelector(".admin-status").innerText = select.value;
+                item.querySelector(".admin-status").innerText = formatCommissionStatus(select.value);
             } catch (error) {
                 console.error(error);
                 alert("Failed to update status.");
