@@ -609,3 +609,186 @@ COMMISSION FORM
     clip-path: inset(50%);
     white-space: nowrap;
 }
+
+
+.commission-list {
+
+    display:flex;
+    flex-direction:column;
+
+    gap:16px;
+
+    margin-top:40px;
+
+    max-width:1000px;
+    margin-left:auto;
+    margin-right:auto;
+
+}
+
+
+.admin-item {
+
+    background:#111;
+
+    border-radius:16px;
+
+    overflow:hidden;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+
+}
+
+
+.admin-item:hover {
+
+    transform:translateY(-3px);
+
+    box-shadow:0 8px 0 rgba(255,255,255,.25);
+
+}
+
+
+/* collapsed header */
+
+.admin-summary {
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:20px 24px;
+
+    cursor:pointer;
+
+}
+.admin-summary small {
+
+    color:#999;
+
+    font-size:16px;
+
+}
+
+.admin-summary h3 {
+
+    margin:0;
+
+    font-size:28px;
+
+}
+
+
+.admin-status {
+
+    padding:8px 16px;
+
+    background:#222;
+
+    border-radius:20px;
+
+}
+
+
+
+/* expanded section */
+
+.admin-details {
+
+    max-height:0;
+
+    opacity:0;
+
+    overflow:hidden;
+
+    padding:0 24px;
+
+    border-top:0 solid #333;
+
+    transition:
+        max-height .35s ease,
+        opacity .25s ease,
+        padding .35s ease,
+        border-width .35s ease;
+
+}
+
+
+.admin-item.open .admin-details {
+
+    max-height:1000px;
+
+    opacity:1;
+
+    padding:0 24px 24px 24px;
+
+    /* border-top:1px solid #333; */
+
+}
+
+
+.admin-item.open .admin-details {
+
+    display:block;
+
+}
+
+
+.admin-details p {
+
+    font-size:18px;
+
+    line-height:1.5;
+
+}
+
+
+.admin-details select {
+
+    width:100%;
+
+    margin-top:20px;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#222;
+
+    color:white;
+
+    font-family:inherit;
+
+    font-size:18px;
+
+}
+
+
+.reference-images {
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+}
+
+
+.reference-image {
+
+    width:180px;
+
+    border-radius:12px;
+
+    background:#222;
+
+    padding:8px;
+
+}
