@@ -96,7 +96,6 @@ async function notifyNewCommission(env, { name, email, type, description, contac
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     text: [
-                        "<!channel>",
                         `# Commission Request`,
                         ``,
                         `**Name:** ${displayName}`,
@@ -106,7 +105,7 @@ async function notifyNewCommission(env, { name, email, type, description, contac
                         `**Description:** ${description || "(none)"}`,
                         `**References:**\n${refs}`,
                         ``,
-                        ``,
+                        "<!channel>",
                     ].join("\n"),
                 }),
             });
@@ -117,7 +116,6 @@ async function notifyNewCommission(env, { name, email, type, description, contac
         }
 
         const content = [
-            "@everyone",
             `# Commission Request`,
             ``,
             `**Name:** ${displayName}`,
@@ -126,7 +124,7 @@ async function notifyNewCommission(env, { name, email, type, description, contac
             `**Type:** ${formatCommissionType(type)}`,
             `**Description:** ${description || "(none)"}`,
             ``,
-            ``,
+            "@everyone",
         ].join("\n");
 
         const filesToSend = referenceFiles.slice(0, 10);

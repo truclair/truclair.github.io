@@ -93,7 +93,6 @@ async function notifyNewCommission(env, { name, email, type, description, contac
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           text: [
-            "<!channel>",
             `# Commission Request`,
             ``,
             `**Name:** ${displayName}`,
@@ -104,7 +103,7 @@ async function notifyNewCommission(env, { name, email, type, description, contac
             `**References:**
 ${refs}`,
             ``,
-            ``
+            "<!channel>"
           ].join("\n")
         })
       });
@@ -114,7 +113,6 @@ ${refs}`,
       return null;
     }
     const content = [
-      "@everyone",
       `# Commission Request`,
       ``,
       `**Name:** ${displayName}`,
@@ -123,7 +121,7 @@ ${refs}`,
       `**Type:** ${formatCommissionType(type)}`,
       `**Description:** ${description || "(none)"}`,
       ``,
-      ``
+      "@everyone"
     ].join("\n");
     const filesToSend = referenceFiles.slice(0, 10);
     const imageEmbeds = filesToSend.map((file) => ({
