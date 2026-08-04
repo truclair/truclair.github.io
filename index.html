@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
+        <meta charset="UTF-8">
+        <title>Truclair Commissions</title>
         <link rel="stylesheet" href="styles.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     </head>
@@ -8,66 +10,60 @@
 
         <div class="top-gradient"></div>
 
-        <!-- TOPBAR NAVIGATION  -->
-        <div class="topnav">
+        <nav class="topnav">
             <a href="#home">Home</a>
             <a href="#order">Order</a>
             <a href="#terms">Terms</a>
             <a href="#submit">Submit</a>
-        </div>
+        </nav>
 
-        <!-- SOCIAL BAR  -->
         <div class="social-bar">
             <p>Contact me if you have questions!</p>
             <div class="social-links">
-                <a href="https://www.instagram.com/truclair.arts/" target="_blank"> <i class="fa-brands fa-instagram"></i> </a>
-                <a href="https://www.deviantart.com/truclair" target="_blank"> <i class="fa-brands fa-deviantart"></i> </a>
-                <a href="mailto:truclair@gmail.com"> <i class="fa-solid fa-envelope"></i> </a>
+                <a href="https://www.instagram.com/truclair.arts/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.deviantart.com/truclair" target="_blank"><i class="fa-brands fa-deviantart"></i></a>
+                <a href="mailto:truclair@gmail.com"><i class="fa-solid fa-envelope"></i></a>
             </div>
         </div>
 
-        <!-- HERO PAGE  -->
         <section id="home" class="hero">
-            <video class="hero-video" autoplay loop muted playsinline> <source src="illustration/2026-01-07-Peer-Pressure.mp4" type="video/mp4"> </video>
+            <video class="hero-video" autoplay loop muted playsinline>
+                <source src="illustration/2026-01-07-Peer-Pressure.mp4" type="video/mp4">
+            </video>
             <div class="hero-darken"></div>
-            <div class="hero-gradient"></div>
-            <div class="hero-content"></div>
-            <h1>TRUCLAIR</h1>
-            <div class="commission-container">
-                <label>Welcome!</label>
-                <ol>
-                    <li>Select any of the pricing options below.</li>
-                    <li>Read the Terms of Service.</li>
-                    <li>Fill our your contact info (name and email address).</li>
-                    <li>Don't forget to specfify what you want in your commission!</li>
-                    <li>I will confirm details via truclair@gmail.com and get started.</li>
-                </ol>
+            <div class="hero-content">
+                <h1>TRUCLAIR</h1>
+                <div class="commission-container">
+                    <label>Welcome!</label>
+                    <ol>
+                        <li>Select any of the pricing options below.</li>
+                        <li>Read the Terms of Service.</li>
+                        <li>Fill our your contact info (name and email address).</li>
+                        <li>Don't forget to specfify what you want in your commission!</li>
+                        <li>I will confirm details via truclair@gmail.com and get started.</li>
+                    </ol>
+                </div>
             </div>
         </section>
 
         <div class="content">
-            
-            <!-- stats.js: Handles queue. -->
-            <p id="count"></p>
-            
-            <section id="order" class="order">
 
+            <p id="count"></p>
+
+            <section id="order" class="order">
                 <p>Prices may change depending on request.</p>
                 <p>(Multiple chaacters, background complexity, flat colors vs shaded, etc.)</p>
-                <!-- cards.js: Presents the user with a list of commission types. -->
                 <div class="commission-types" id="commission-types"></div>
-
             </section>
 
             <section id="terms" class="terms">
                 <form id="commissionForm" class="commission-container">
                     <div class="upload-section">
-                        <!-- tos.js & tos.json: displays the terms of service in a numbered list -->
-                        <label> Terms of Service </label>
+                        <label>Terms of Service</label>
                         <small id="tos-updated"></small>
                         <ol id="tos-list"></ol>
                     </div>
-                    
+
                     <div class="upload-section">
                         <label for="references">Information</label>
                         <input id="name" type="text" placeholder="Your name">
@@ -80,14 +76,14 @@
                         <small>Describe here (background or solid color, number of characters, etc.).</small>
                         <textarea id="description" placeholder="Provide any details for the commission"></textarea>
                     </div>
-                    <label id = "tos-checkbox" class="tos-checkbox">
-                    <input id="tos" type="checkbox">
-                    <span>*I have read, understood, and agree to the Terms of Service.</span>
+
+                    <label id="tos-checkbox" class="tos-checkbox">
+                        <input id="tos" type="checkbox">
+                        <span>*I have read, understood, and agree to the Terms of Service.</span>
                     </label>
                     <small>Please read the Terms of Service above before submitting. You must agree to continue.</small>
-                    <!-- app.js: Handles submissions. -->
-                    <button id="submit">Submit Commission Request</button>
-                    <div id="upload-progress" class="upload-progress"> <div id="upload-bar"></div> </div>
+                    <button id="submit" type="submit">Submit Commission Request</button>
+                    <div id="upload-progress" class="upload-progress"><div id="upload-bar"></div></div>
                 </form>
             </section>
         </div>
@@ -99,4 +95,3 @@
 
     </body>
 </html>
-
