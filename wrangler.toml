@@ -3,7 +3,7 @@ compatibility_date = "2026-08-03"
 main = "src/worker.js"
 
 [assets]
-directory = "."
+directory = "public"
 binding = "ASSETS"
 not_found_handling = "single-page-application"
 
@@ -16,4 +16,4 @@ database_id = "33a95f16-a250-4a4a-853a-51234f5f1e09"
 binding = "REFERENCES"
 bucket_name = "commissions"
 
-# Set ADMIN_TOKEN as a secret: wrangler secret put ADMIN_TOKEN
+# Set ADMIN_TOKEN as a secret: npx wrangler secret put ADMIN_TOKEN

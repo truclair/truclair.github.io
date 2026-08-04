@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS commissions (
     type TEXT NOT NULL,
     description TEXT NOT NULL DEFAULT '',
     status TEXT NOT NULL DEFAULT 'Pending',
-    references TEXT NOT NULL DEFAULT '[]',
+    reference_urls TEXT NOT NULL DEFAULT '[]',
     time TEXT NOT NULL DEFAULT (datetime('now'))
 );
 

@@ -37,14 +37,14 @@ async function handleListCommissions(request, env) {
     if (authError) return authError;
 
     const { results } = await env.DB.prepare(
-        `SELECT id, name, email, type, description, status, references, time
+        `SELECT id, name, email, type, description, status, reference_urls, time
          FROM commissions
          ORDER BY time DESC`
     ).all();
 
     const commissions = results.map((row) => ({
         ...row,
-        references: JSON.parse(row.references || "[]"),
+        references: JSON.parse(row.reference_urls || "[]"),
     }));
 
     return jsonResponse(commissions);
@@ -99,7 +99,7 @@ async function handleCreateCommission(request, env, url) {
     }
 
     const result = await env.DB.prepare(
-        `INSERT INTO commissions (name, email, type, description, status, references)
+        `INSERT INTO commissions (name, email, type, description, status, reference_urls)
          VALUES (?, ?, ?, ?, 'Pending', ?)`
     ).bind(name, email, type, description, JSON.stringify(uploadedUrls)).run();
 
@@ -157,7 +157,12 @@ export default {
         const url = new URL(request.url);
 
         if (url.pathname.startsWith("/api/")) {
-            return handleApi(request, env, url);
+            try {
+                return await handleApi(request, env, url);
+            } catch (err) {
+                console.error("API error:", err);
+                return errorResponse(err.message || "Internal server error", 500);
+            }
         }
 
         return env.ASSETS.fetch(request);
