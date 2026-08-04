@@ -68,7 +68,7 @@ async function loadCommissions() {
             <div class="admin-details">
                 <p><strong>Email</strong><br>${commission.email}</p>
                 <p><strong>Contact</strong><br>${commission.contact || "Email"}</p>
-                <p><strong>Type</strong><br>${commission.type}</p>
+                <p><strong>Type</strong><br>${commission.typeLabel || commission.type}</p>
                 <p><strong>Description</strong><br>${commission.description}</p>
 
                 <strong>References</strong>

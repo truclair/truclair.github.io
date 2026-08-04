@@ -70,6 +70,16 @@ function formatContactPreference(method, handle) {
     return "Email";
 }
 
+const COMMISSION_TYPE_LABELS = {
+    head: "Headshot",
+    half: "Half Body",
+    full: "Full Body",
+};
+
+function formatCommissionType(type) {
+    return COMMISSION_TYPE_LABELS[type] || type;
+}
+
 async function notifyNewCommission(env, { name, email, type, description, contact, referenceUrls, referenceFiles }) {
     const webhookUrl = env.WEBHOOK_URL;
     if (!webhookUrl) return null;
@@ -92,7 +102,7 @@ async function notifyNewCommission(env, { name, email, type, description, contac
                         `*Name:* ${displayName}`,
                         `*Email:* ${email}`,
                         `*Contact:* ${contact}`,
-                        `*Type:* ${type}`,
+                        `*Type:* ${formatCommissionType(type)}`,
                         `*Description:* ${description || "(none)"}`,
                         `*References:*\n${refs}`,
                     ].join("\n"),
@@ -111,7 +121,7 @@ async function notifyNewCommission(env, { name, email, type, description, contac
             `**Name:** ${displayName}`,
             `**Email:** ${email}`,
             `**Contact:** ${contact}`,
-            `**Type:** ${type}`,
+            `**Type:** ${formatCommissionType(type)}`,
             `**Description:** ${description || "(none)"}`,
         ].join("\n");
 
@@ -178,6 +188,7 @@ async function handleListCommissions(request, env) {
 
     const commissions = results.map((row) => ({
         ...row,
+        typeLabel: formatCommissionType(row.type),
         contact: formatContactPreference(row.contact_method, row.contact_handle),
         references: JSON.parse(row.reference_urls || "[]"),
     }));
