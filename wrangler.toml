@@ -1,4 +1,19 @@
-
 name = "truclair-github-io"
 compatibility_date = "2026-08-03"
-main = "src/index.js"
+main = "src/worker.js"
+
+[assets]
+directory = "."
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "truclair-commissions"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+
+[[r2_buckets]]
+binding = "REFERENCES"
+bucket_name = "truclair-references"
+
+# Set ADMIN_TOKEN as a secret: wrangler secret put ADMIN_TOKEN

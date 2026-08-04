@@ -1,28 +1,15 @@
-import { supabase } from "./supabase.js";
+import { getCommissionCount } from "./api.js";
 
 async function updateCommissionCount() {
-
     const countElement = document.getElementById("count");
 
-    const { count, error } = await supabase
-        .from("commissions")
-        .select("*", {
-            count: "exact",
-            head: true
-        })
-        .in("status", [
-            "Accepted",
-            "Deposit",
-            "Progress"
-        ]);
-
-    if (error) {
+    try {
+        const count = await getCommissionCount();
+        countElement.textContent = `${count} commission(s) in queue! (∞ slots open)`;
+    } catch (error) {
         console.error(error);
         countElement.textContent = "Queue unavailable";
-        return;
     }
-
-    countElement.textContent = `${count} commission(s) in queue! (∞ slots open)`;
 }
 
 updateCommissionCount();

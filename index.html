@@ -1,8 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
-        <meta charset="UTF-8">
-        <title>Truclair Commissions</title>
         <link rel="stylesheet" href="styles.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     </head>
@@ -10,30 +8,34 @@
 
         <div class="top-gradient"></div>
 
-        <nav class="topnav">
+        <!-- TOPBAR NAVIGATION  -->
+        <div class="topnav">
             <a href="#home">Home</a>
             <a href="#order">Order</a>
             <a href="#terms">Terms</a>
             <a href="#submit">Submit</a>
-        </nav>
+        </div>
 
+        <!-- SOCIAL BAR  -->
         <div class="social-bar">
             <p>Contact me if you have questions!</p>
             <div class="social-links">
-                <a href="https://www.instagram.com/truclair.arts/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                <a href="https://www.deviantart.com/truclair" target="_blank"><i class="fa-brands fa-deviantart"></i></a>
-                <a href="mailto:truclair@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+                <a href="https://www.instagram.com/truclair.arts/" target="_blank"> <i class="fa-brands fa-instagram"></i> </a>
+                <a href="https://www.deviantart.com/truclair" target="_blank"> <i class="fa-brands fa-deviantart"></i> </a>
+                <a href="mailto:truclair@gmail.com"> <i class="fa-solid fa-envelope"></i> </a>
             </div>
         </div>
 
+        <!-- HERO PAGE  -->
         <section id="home" class="hero">
             <video class="hero-video" autoplay loop muted playsinline>
-                <source src="illustration/2026-01-07-Peer-Pressure.mp4" type="video/mp4">
+                <source src="illustration/2026-01-07-Peer-Pressure (Reduced 2).mp4" type="video/mp4">
             </video>
             <div class="hero-darken"></div>
             <div class="hero-content">
                 <h1>TRUCLAIR</h1>
                 <div class="commission-container">
+                    <p id="count"></p>
                     <label>Welcome!</label>
                     <ol>
                         <li>Select any of the pricing options below.</li>
@@ -47,43 +49,48 @@
         </section>
 
         <div class="content">
-
-            <p id="count"></p>
-
+            
+            <!-- stats.js: Handles queue. -->
+            
             <section id="order" class="order">
-                <p>Prices may change depending on request.</p>
-                <p>(Multiple chaacters, background complexity, flat colors vs shaded, etc.)</p>
+
+                <!-- cards.js: Presents the user with a list of commission types. -->
                 <div class="commission-types" id="commission-types"></div>
+
             </section>
 
             <section id="terms" class="terms">
                 <form id="commissionForm" class="commission-container">
                     <div class="upload-section">
-                        <label>Terms of Service</label>
+                        <!-- tos.js & tos.json: displays the terms of service in a numbered list -->
+                        <label> Terms of Service </label>
                         <small id="tos-updated"></small>
                         <ol id="tos-list"></ol>
                     </div>
-
+                    
                     <div class="upload-section">
-                        <label for="references">Information</label>
+                        <p class="upload-section-title">Information</p>
+                        <label for="name">Your name</label>
                         <input id="name" type="text" placeholder="Your name">
-                        <input id="email" type="email" placeholder="Email*">
+                        <label for="email">Email*</label>
+                        <input id="email" type="email" placeholder="Email*" required>
                     </div>
 
                     <div class="upload-section">
+                        <label for="references">Reference images</label>
                         <small>Upload one or more reference images.</small>
                         <input id="references" type="file" accept="image/*" multiple>
                         <small>Describe here (background or solid color, number of characters, etc.).</small>
                         <textarea id="description" placeholder="Provide any details for the commission"></textarea>
                     </div>
-
-                    <label id="tos-checkbox" class="tos-checkbox">
-                        <input id="tos" type="checkbox">
-                        <span>*I have read, understood, and agree to the Terms of Service.</span>
+                    <label id = "tos-checkbox" class="tos-checkbox">
+                    <input id="tos" type="checkbox">
+                    <span>*I have read, understood, and agree to the Terms of Service.</span>
                     </label>
                     <small>Please read the Terms of Service above before submitting. You must agree to continue.</small>
-                    <button id="submit" type="submit">Submit Commission Request</button>
-                    <div id="upload-progress" class="upload-progress"><div id="upload-bar"></div></div>
+                    <!-- app.js: Handles submissions. -->
+                    <button id="submit">Submit Commission Request</button>
+                    <div id="upload-progress" class="upload-progress"> <div id="upload-bar"></div> </div>
                 </form>
             </section>
         </div>
@@ -95,3 +102,4 @@
 
     </body>
 </html>
+
