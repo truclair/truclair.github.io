@@ -1,4 +1,23 @@
 {
+    "gallery": [
+        {
+            "src": "illustration/2025-11-21-Bedroom.png",
+            "alt": "Bedroom"
+        },
+        {
+            "src": "illustration/2025-05-09-Movies.png",
+            "alt": "Movies"
+        },
+        {
+            "src": "illustration/2025-01-22-Delaunay.png",
+            "alt": "Delaunay"
+        },
+        {
+            "src": "illustration/2024-05-24-Sunset.png",
+            "alt": "Sunset"
+        }
+    ],
+
     "commissions": [
         {
             "name": "Headshot",
