@@ -611,25 +611,29 @@ COMMISSION FORM
 }
 
 .reference-images {
-    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 12px;
 }
 
 .reference-images strong {
     display: block;
-    margin-bottom: 12px;
+    width: 100%;
+    margin-bottom: 4px;
     font-size: 18px;
 }
 
 .reference-image {
-    width: 100%;
-    max-width: 300px;
+    width: 180px;
+    max-width: 100%;
+    height: auto;
+    max-height: 220px;
     border-radius: 12px;
-    margin-bottom: 12px;
-    display: block;
-    object-fit: contain;
     background: #222;
     padding: 8px;
-
+    box-sizing: border-box;
+    object-fit: contain;
 }
 
 
@@ -976,29 +980,5 @@ COMMISSION FORM
     opacity:0.6;
 
     cursor:not-allowed;
-
-}
-
-
-.reference-images {
-
-    display:flex;
-
-    flex-wrap:wrap;
-
-    gap:12px;
-
-}
-
-
-.reference-image {
-
-    width:180px;
-
-    border-radius:12px;
-
-    background:#222;
-
-    padding:8px;
 
 }

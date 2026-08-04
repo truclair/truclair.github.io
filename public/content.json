@@ -73,13 +73,15 @@
                     "I will automatically send you updates during every stage: Sketch, Lineart, Color, Rendering.",
                     "During the sketch or lineart stages, you can request major changes for free. Major changes include: Changing the pose, body expression, composition, etc.",
                     "During the color or rendering stages, you can request minor changes for free. Minor changes include: Changing the hands, facial expression, facial features, shapes, accessory details, color values, etc.",
+                    "If any major change is accepted during the color or rendering stages, you will be charged an additional fee, which will be determined by the complexity of the change.",
+                    "Don't let that stop you from requesting changes! If you have any concerns at any stage, feel free to inform me and we can discuss the best course of action.",
                     "Feel free to ask for additional progress updates!"
                 ]
             },
             {
                 "title": "Acceptable Use",
                 "items": [
-                    "Don't make big edits on my artwork under any circumstances. If edits are needed, please let me know before the commission is completed.",
+                    "Don't make significant edits on my artwork under any circumstances. If edits are needed, please let me know before the commission is completed.",
                     "My artwork will not be used for NFTs or AIs. If you notice someone using my work for NFTs or AIs, please let me know.",
                     "Unless requested, I may post commissioned artwork on social media."
                 ]

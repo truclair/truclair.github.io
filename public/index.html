@@ -50,7 +50,7 @@
                     <li>Select any of the pricing options below.</li>
                     <li>Read the Terms of Service.</li>
                     <li>Fill out the commission form.</li>
-                    <li>I will confirm details via truclair@gmail.com (or via Discord or Instagram) and get started!</li>
+                    <li>I will confirm details via truclair@gmail.com (or DMs) and get started!</li>
                 </ol>
             </div>
         </section>
@@ -66,7 +66,7 @@
 
                 <div id="commissionForm" class="commission-container">
                     <!-- cards.js: Presents the user with a list of commission types. -->
-                    <label>Select one of the following commission types:</label>
+                    <label>Select a commission type:</label>
                     <div class="commission-types" id="commission-types"></div>
                     <label>Extras</label>
                     <small>+$20 for complex backgrounds.</small>
@@ -100,10 +100,10 @@
                     <div class="upload-section">
                         <p class="upload-section-title">Information</p>
                         <label for="name">Name</label>
-                        <small>As credited!</small>
+                        <small>As credited:</small>
                         <input id="name" type="text" placeholder="Your name">
                         <label for="email">Email</label>
-                        <small>For payments & invoicing.</small>
+                        <small>For payments & invoicing:</small>
                         <input id="email" type="email" placeholder="Your email*" required>
                         <label for="contact-method">Contact</label>
                         <small>Where can I reach out?</small>
@@ -127,7 +127,8 @@
                                 <li>Link: If you keep your references elsewhere, provide a link in the description.</li>
                             </ul>
                         <input id="references" type="file" accept="image/*" multiple>
-                        <label for="references">Description</label>
+                        <div id="reference-preview" class="reference-images"></div>
+                        <label for="description">Description</label>
                         <small>Describe your character(s) in detail.</small>
                         <ul>
                             <li>Physical Appearance: Build, body, face, hair, color, scars, markings...</li>
