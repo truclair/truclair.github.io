@@ -20,9 +20,11 @@ async function loadCommissionTypes() {
                 <p>${price}</p>
             `).join("")}
 
+            <!--
             ${type.images.map(image => `
                 <img src="${image}" alt="${type.name}">
             `).join("")}
+            -->
         `;
 
         container.appendChild(card);

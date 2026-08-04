@@ -21,7 +21,7 @@ submitButton.addEventListener("click", async (event) => {
 
     const errors = [];
     if (!email) { errors.push("• Please provide your email."); }
-    if (!type) { errors.push("• Select a commission type from the options above."); }
+    if (!type) { errors.push("• Select a base price from the options above."); }
     if (!tos) { errors.push("• Please read and agree to the Terms of Service."); }
     if (contactMethod !== "email" && !contactHandle) {
         const platform = contactMethod === "instagram" ? "Instagram" : "Discord";

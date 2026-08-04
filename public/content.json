@@ -5,16 +5,28 @@
             "alt": "Bedroom"
         },
         {
-            "src": "illustration/2025-05-09-Movies.png",
-            "alt": "Movies"
+            "src": "illustration/Heartache.png",
+            "alt": "Heartache"
         },
         {
-            "src": "illustration/2026-01-07-Peer-Pressure.gif",
-            "alt": "Peer Pressure"
+            "src": "illustration/Stage.png",
+            "alt": "Stage"
         },
         {
             "src": "illustration/AdminPageCard.png",
             "alt": "Fighting"
+        },
+        {
+            "src": "illustration/Yearly Check-Up (No Signature).png",
+            "alt": "Yearly Check-Up"
+        },
+        {
+            "src": "illustration/PageCard.png",
+            "alt": "Action"
+        },
+        {
+            "src": "illustration/2026-06-30-Homecoming.png",
+            "alt": "Homecoming"
         }
     ],
 
