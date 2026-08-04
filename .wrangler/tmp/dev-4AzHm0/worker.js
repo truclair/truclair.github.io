@@ -27,7 +27,7 @@ function requireAdmin(request, env) {
 }
 __name(requireAdmin, "requireAdmin");
 async function handleCommissionCount(env) {
-  const result = await env.DB.prepare(
+  const result = await env.DATABASE.prepare(
     `SELECT COUNT(*) as count FROM commissions
          WHERE status IN ('Accepted', 'Deposit', 'Progress')`
   ).first();
@@ -37,7 +37,7 @@ __name(handleCommissionCount, "handleCommissionCount");
 async function handleListCommissions(request, env) {
   const authError = requireAdmin(request, env);
   if (authError) return authError;
-  const { results } = await env.DB.prepare(
+  const { results } = await env.DATABASE.prepare(
     `SELECT id, name, email, type, description, status, reference_urls, time
          FROM commissions
          ORDER BY time DESC`
@@ -57,7 +57,7 @@ async function handleUpdateCommission(request, env, id) {
   if (!status) {
     return errorResponse("Status is required");
   }
-  const result = await env.DB.prepare(
+  const result = await env.DATABASE.prepare(
     `UPDATE commissions SET status = ? WHERE id = ?`
   ).bind(status, id).run();
   if (result.meta.changes === 0) {
@@ -85,7 +85,7 @@ async function handleCreateCommission(request, env, url) {
     });
     uploadedUrls.push(`${url.origin}/api/references/${encodeURIComponent(key)}`);
   }
-  const result = await env.DB.prepare(
+  const result = await env.DATABASE.prepare(
     `INSERT INTO commissions (name, email, type, description, status, reference_urls)
          VALUES (?, ?, ?, ?, 'Pending', ?)`
   ).bind(name, email, type, description, JSON.stringify(uploadedUrls)).run();
