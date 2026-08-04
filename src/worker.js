@@ -87,7 +87,8 @@ async function notifyNewCommission(env, { name, email, type, description, contac
                 body: JSON.stringify({
                     text: [
                         "<!channel>",
-                        `*New commission request*`,
+                        `#**New Commission Request!**`,
+                        ``,
                         `*Name:* ${displayName}`,
                         `*Email:* ${email}`,
                         `*Contact:* ${contact}`,
