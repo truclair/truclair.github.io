@@ -49,7 +49,8 @@ async function notifyNewCommission(env, { name, email, type, description, refere
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           text: [
-            `@everyone`,
+            "<!channel>",
+            `*New commission request*`,
             `*Name:* ${displayName}`,
             `*Email:* ${email}`,
             `*Type:* ${type}`,
@@ -65,6 +66,8 @@ ${refs}`
       return;
     }
     const content = [
+      "@everyone",
+      "",
       "**New commission request**",
       `**Name:** ${displayName}`,
       `**Email:** ${email}`,
@@ -75,7 +78,11 @@ ${refs}`
     const imageEmbeds = filesToSend.map((file) => ({
       image: { url: `attachment://${file.name}` }
     }));
-    const payload = { content, embeds: imageEmbeds };
+    const payload = {
+      content,
+      embeds: imageEmbeds,
+      allowed_mentions: { parse: ["everyone"] }
+    };
     if (filesToSend.length === 0) {
       const response2 = await fetch(webhookUrl, {
         method: "POST",
