@@ -28,10 +28,6 @@ async function notifyNewCommission(env, { name, email, type, description, refere
     if (!webhookUrl) return;
 
     const displayName = name || "Anonymous";
-    const refCount = referenceFiles.length;
-    const refLabel = refCount === 0
-        ? "None"
-        : `${refCount} image${refCount === 1 ? "" : "s"} attached`;
 
     try {
         if (webhookUrl.includes("hooks.slack.com")) {
@@ -58,26 +54,22 @@ async function notifyNewCommission(env, { name, email, type, description, refere
             return;
         }
 
-        const embed = {
-            title: "New commission request",
-            color: 0x9b59b6,
-            fields: [
-                { name: "Name", value: displayName, inline: true },
-                { name: "Email", value: email, inline: true },
-                { name: "Type", value: type, inline: true },
-                { name: "Description", value: description || "(none)" },
-                { name: "References", value: refLabel },
-            ],
-            timestamp: new Date().toISOString(),
-        };
+        const content = [
+            "**New commission request**",
+            `**Name:** ${displayName}`,
+            `**Email:** ${email}`,
+            `**Type:** ${type}`,
+            `**Description:** ${description || "(none)"}`,
+        ].join("\n");
 
-        if (referenceFiles.length > 0) {
-            embed.image = { url: `attachment://${referenceFiles[0].name}` };
-        }
+        const filesToSend = referenceFiles.slice(0, 10);
+        const imageEmbeds = filesToSend.map((file) => ({
+            image: { url: `attachment://${file.name}` },
+        }));
 
-        const payload = { embeds: [embed] };
+        const payload = { content, embeds: imageEmbeds };
 
-        if (referenceFiles.length === 0) {
+        if (filesToSend.length === 0) {
             const response = await fetch(webhookUrl, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -91,7 +83,7 @@ async function notifyNewCommission(env, { name, email, type, description, refere
 
         const form = new FormData();
         form.append("payload_json", JSON.stringify(payload));
-        referenceFiles.forEach((file, i) => {
+        filesToSend.forEach((file, i) => {
             form.append(`files[${i}]`, file.blob, file.name);
         });
 

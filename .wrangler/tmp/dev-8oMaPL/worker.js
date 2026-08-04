@@ -30,8 +30,6 @@ async function notifyNewCommission(env, { name, email, type, description, refere
   const webhookUrl = env.WEBHOOK_URL;
   if (!webhookUrl) return;
   const displayName = name || "Anonymous";
-  const refCount = referenceFiles.length;
-  const refLabel = refCount === 0 ? "None" : `${refCount} image${refCount === 1 ? "" : "s"} attached`;
   try {
     if (webhookUrl.includes("hooks.slack.com")) {
       const refs = referenceUrls.length > 0 ? referenceUrls.map((u) => u).join("\n") : "None";
@@ -55,23 +53,19 @@ ${refs}`
       }
       return;
     }
-    const embed = {
-      title: "New commission request",
-      color: 10181046,
-      fields: [
-        { name: "Name", value: displayName, inline: true },
-        { name: "Email", value: email, inline: true },
-        { name: "Type", value: type, inline: true },
-        { name: "Description", value: description || "(none)" },
-        { name: "References", value: refLabel }
-      ],
-      timestamp: (/* @__PURE__ */ new Date()).toISOString()
-    };
-    if (referenceFiles.length > 0) {
-      embed.image = { url: `attachment://${referenceFiles[0].name}` };
-    }
-    const payload = { embeds: [embed] };
-    if (referenceFiles.length === 0) {
+    const content = [
+      "**New commission request**",
+      `**Name:** ${displayName}`,
+      `**Email:** ${email}`,
+      `**Type:** ${type}`,
+      `**Description:** ${description || "(none)"}`
+    ].join("\n");
+    const filesToSend = referenceFiles.slice(0, 10);
+    const imageEmbeds = filesToSend.map((file) => ({
+      image: { url: `attachment://${file.name}` }
+    }));
+    const payload = { content, embeds: imageEmbeds };
+    if (filesToSend.length === 0) {
       const response2 = await fetch(webhookUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -84,7 +78,7 @@ ${refs}`
     }
     const form = new FormData();
     form.append("payload_json", JSON.stringify(payload));
-    referenceFiles.forEach((file, i) => {
+    filesToSend.forEach((file, i) => {
       form.append(`files[${i}]`, file.blob, file.name);
     });
     const response = await fetch(webhookUrl, { method: "POST", body: form });
