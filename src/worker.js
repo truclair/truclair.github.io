@@ -97,14 +97,15 @@ async function notifyNewCommission(env, { name, email, type, description, contac
                 body: JSON.stringify({
                     text: [
                         "<!channel>",
-                        `#**Commission Request**`,
+                        `# Commission Request`,
                         ``,
-                        `- **Name:** ${displayName}`,
-                        `- **Email:** ${email}`,
-                        `- **Contact:** ${contact}`,
-                        `- **Type:** ${formatCommissionType(type)}`,
-                        `- **Description:** ${description || "(none)"}`,
-                        `- **References:**\n${refs}`,
+                        `**Name:** ${displayName}`,
+                        `**Email:** ${email}`,
+                        `**Contact:** ${contact}`,
+                        `**Type:** ${formatCommissionType(type)}`,
+                        `**Description:** ${description || "(none)"}`,
+                        `**References:**\n${refs}`,
+                        ``,
                         ``,
                     ].join("\n"),
                 }),
@@ -117,13 +118,14 @@ async function notifyNewCommission(env, { name, email, type, description, contac
 
         const content = [
             "@everyone",
-            `#**Commission Request**`,
+            `# Commission Request`,
             ``,
-            `- **Name:** ${displayName}`,
-            `- **Email:** ${email}`,
-            `- **Contact:** ${contact}`,
-            `- **Type:** ${formatCommissionType(type)}`,
-            `- **Description:** ${description || "(none)"}`,
+            `**Name:** ${displayName}`,
+            `**Email:** ${email}`,
+            `**Contact:** ${contact}`,
+            `**Type:** ${formatCommissionType(type)}`,
+            `**Description:** ${description || "(none)"}`,
+            ``,
             ``,
         ].join("\n");
 
