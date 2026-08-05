@@ -48,7 +48,7 @@ async function loadCommissionStatus() {
             <p class="status-badge"><strong>Status</strong><br><span>${escapeHtml(commission.statusLabel || commission.status)}</span></p>
             <p><strong>Name</strong><br>${escapeHtml(commission.name) || "—"}</p>
             <p><strong>Type</strong><br>${escapeHtml(commission.typeLabel || commission.type)}</p>
-            // <p><strong>Submitted</strong><br>${escapeHtml(formatDate(commission.time))}</p>
+            <p><strong>Submitted</strong><br>${escapeHtml(formatDate(commission.time))}</p>
             <p><strong>Description</strong><br>${escapeHtml(commission.description) || "—"}</p>
 
             <strong>References</strong>
